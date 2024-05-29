@@ -1,8 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
-import sequelize from './models/connection.js';
 import db from './models/index.js';
+import indexRouter from './routes/index.js';
 
 dotenv.config();  // node.js에서는 process.env로 환경변수에 접근하는데 dotenv.config()를 해줘야 우리가 .env에 명시해둔 환경변수들이 process.env 객체에 들어감
 
@@ -24,9 +24,7 @@ db.sequelize.authenticate().then(() => {
 }).catch((err) => { console.error('db connect fail!', err); });
 
 
-  app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+app.use('/', indexRouter);
 
 
 app.listen(app.get('port'), () => {

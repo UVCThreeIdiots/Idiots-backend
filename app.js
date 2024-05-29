@@ -1,6 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import sequelize from './models/connection.js';
+import db from './models/index.js';
 
 dotenv.config();  // node.js에서는 process.env로 환경변수에 접근하는데 dotenv.config()를 해줘야 우리가 .env에 명시해둔 환경변수들이 process.env 객체에 들어감
 
@@ -12,10 +14,20 @@ app.use(express.json());  // 클라이언트가 서버로 JSON 데이터를 보�
 app.use(express.urlencoded({ extended: false })); // url 쿼리 파싱
 app.use(cookieParser());  // 쿠키 파싱 (req.cookies로 접근 가능)
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
 
+db.sequelize.authenticate().then(() => {
+  console.log('DB connection Success!');
+
+  db.sequelize.sync().then(() => {
+    console.log('DB sync Success!');
+  }).catch((err) => { console.error('db sync error', err); });
+}).catch((err) => { console.error('db connect fail!', err); });
+
+
+  app.get('/', (req, res) => {
+  res.send('Hello World!');
 });
+
 
 app.listen(app.get('port'), () => {
   console.log(`Server on port http://localhost:${app.get('port')}`);

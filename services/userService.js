@@ -1,8 +1,10 @@
-import userDao from '../dao/userDao';
+import userDao from '../dao/userDao.js';
 import hashUtil from '../lib/hashUtil.js';
 
 const userService = {
   async reg(params){
+    console.log("asdfas")
+
     let hashPassword = null;
 
     try{
@@ -28,3 +30,5 @@ const userService = {
     }
   }
 }
+
+export default userService;

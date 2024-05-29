@@ -5,6 +5,7 @@ const router = express.Router();
 
 
 router.post('/', async (req, res) => {
+  console.log("asdf")
   try {
     const params = {
       name: req.body.name,
@@ -16,10 +17,10 @@ router.post('/', async (req, res) => {
     
     const result = await userService.reg(params);
     console.log("🚀 ~ req.body : ", req.body);
-    console.log("🚀 ~ this is route/user.js/post:", body)
+    // console.log("🚀 ~ this is route/user.js/post:", req.body)
     res.status(200).json(result);
   } catch (error) {
-    console.log("🚀 ~ route/user.js/post ~ error:", error)
+    // console.log("🚀 ~ route/user.js/post ~ error:", error)
   }
 });
 

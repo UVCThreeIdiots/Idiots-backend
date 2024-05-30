@@ -11,6 +11,38 @@ const userDao = {
       });
     });
   },
+  
+  selectUser(params) {
+    return new Promise((resolve, reject) => {
+      User.findOne({
+        attributes: ['id', 'userId', 'password', 'name', 'age', 'email'],
+        where: { userId: params.userId },
+      }).then((selectedOne) => {
+        resolve(selectedOne);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  },
+  
+  selectAll() {
+    return new Promise((resolve, reject) => {
+      User.findAll({
+        attributes: ['id', 'userId', 'password', 'name', 'age', 'email'],
+      }).then((selectedAll) => {
+        resolve(selectedAll);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  },
+
+
+
+
+
+
+
 }
 
 export default userDao;

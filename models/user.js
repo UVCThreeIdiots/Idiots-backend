@@ -9,7 +9,7 @@ class User extends Sequelize.Model {
         allowNull: false,
       },
       age: {
-        type: Sequelize.INTEGER.UNSIGNED,
+        type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 0,
       },

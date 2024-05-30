@@ -5,7 +5,6 @@ const router = express.Router();
 
 
 router.post('/', async (req, res) => {
-  console.log("asdf")
   try {
     const params = {
       name: req.body.name,
@@ -17,12 +16,26 @@ router.post('/', async (req, res) => {
     
     const result = await userService.reg(params);
     console.log("🚀 ~ req.body : ", req.body);
-    // console.log("🚀 ~ this is route/user.js/post:", req.body)
     res.status(200).json(result);
   } catch (error) {
-    // console.log("🚀 ~ route/user.js/post ~ error:", error)
+    res.status(400).json({ message: error.message });
   }
 });
+
+
+//이 요청은 개발단계에서 등록된 모든 사용자를 보기 위한 api입니다.
+//후에 관리자가 이 api를 쓸 것으로 예상됩니다.
+router.get('/all', async (req, res) => {
+
+  try {
+    const result = await userService.list();
+    res.status(200).json(result);
+    
+  } catch (error) {
+    res.status(400).json({message: error.message})
+  }
+});
+
 
 
 export default router;

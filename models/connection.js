@@ -20,7 +20,7 @@ const sequelize = new Sequelize(
     host: db.host,
     port: db.port,
     dialect: db.dialect,
-    logging: true,
+    logging: false,
   },
 );
 

@@ -1,5 +1,6 @@
 import express from 'express';
 import userService from '../services/userService.js'
+import logger from '../lib/logger.js';
 
 const router = express.Router();
 
@@ -25,6 +26,7 @@ router.post('/', async (req, res) => {
 //이 요청은 개발단계에서 등록된 모든 사용자를 보기 위한 api입니다.
 //후에 관리자가 이 api를 쓸 것으로 예상됩니다.
 router.get('/all', async (req, res) => {
+  logger.info("[GET] /user/all ")
 
   try {
     const result = await userService.list();

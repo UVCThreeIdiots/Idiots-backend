@@ -26,7 +26,7 @@ app.use(cookieParser());  // 쿠키 파싱 (req.cookies로 접근 가능)
 db.sequelize.authenticate().then(() => {
   console.log('DB connection Success!');
 
-  db.sequelize.sync().then(() => {
+  db.sequelize.sync({alter: true}).then(() => {
     console.log('DB sync Success!');
   }).catch((err) => { console.error('db sync error', err); });
 }).catch((err) => { console.error('db connect fail!', err); });

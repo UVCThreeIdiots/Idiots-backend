@@ -5,7 +5,7 @@ const db = {}
 
 db.sequelize = sequelize;
 
-db.user = User;
+db.User = User;
 
 
 User.init(sequelize);

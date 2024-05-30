@@ -15,7 +15,6 @@ router.post('/', async (req, res) => {
     }
     
     const result = await userService.reg(params);
-    console.log("🚀 ~ req.body : ", req.body);
     res.status(200).json(result);
   } catch (error) {
     res.status(400).json({ message: error.message });

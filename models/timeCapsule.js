@@ -12,17 +12,14 @@ class TCapsule extends Sequelize.Model {
         allowNull: false,
       },
       expired: {
-        type: DataTypes.DATE,
-        // allowNull: false,
+        type: DataTypes.STRING,
+        allowNull: false,
       },
       status: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
+        defaultValue: false,
       },
-      createdAt: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW
-    }
     }, {
       sequelize,
       timestamps: true,

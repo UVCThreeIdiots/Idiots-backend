@@ -1,15 +1,25 @@
 
 import TCapsuleDao from '../dao/timeCapsuleDao.js';
 import logger from '../lib/logger.js';
+import time from '../lib/timeUtil.js';
 
 const TCapsuleService = {
   async createCapsule(params) {
+    logger.info('TCapsuleService createCapsule', params);
     try {
-      const newCapsule = await TCapsuleDao.insert(params);
+      const newExpired = time.changeFormat(params.expired);
+      const newParams = {
+        ...params,
+        expired: newExpired,
+      };
+      const newCapsule = await TCapsuleDao.insert(newParams);
       return newCapsule;
     } catch (error) {
       logger.error('TCapsuleService.createCapsule error:', error);
-    } 
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
   },
   // 타임 캡슐 조회
   // 1. 타임 캡슐 전체 조회
@@ -26,7 +36,6 @@ const TCapsuleService = {
   // 2. id값에 따른 타임 캡슐 조회
   async getTCapsuleById(params) {
     try {
-      console.log(params);
       const getTCapsuleById = await TCapsuleDao.findByIdTCapsule(params);
       logger.info('timeCapsuleService.getTCapsuleById run successfully');
       return getTCapsuleById;
@@ -57,8 +66,6 @@ const TCapsuleService = {
       throw error;
     }
   }
-
-
 }
 
 export default TCapsuleService;

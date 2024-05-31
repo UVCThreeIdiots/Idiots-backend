@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import Capsule from './timeCapsule.js';
+import TCapsule from './timeCapsule.js';
 
 class User extends Sequelize.Model {
   static init(sequelize) {
@@ -40,7 +40,7 @@ class User extends Sequelize.Model {
   }
 
   static associate(models) {
-    User.hasMany(models.Capsule, { foreignKey: 'userId', as: 'capsules' });
+    User.hasMany(models.TCapsule, { foreignKey: 'userId', as: 'tcapsules' });
   }
 }
 

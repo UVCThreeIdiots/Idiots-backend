@@ -1,5 +1,4 @@
 import { DataTypes, Sequelize } from "sequelize";
-import User from './user.js';
 
 class TCapsule extends Sequelize.Model {
   static init(sequelize){
@@ -26,7 +25,6 @@ class TCapsule extends Sequelize.Model {
     }
     }, {
       sequelize,
-      // modelName: 'capsule',
       timestamps: true,
       underscored: true, // true: underscored, false: camelCase
       createdAt: true,

@@ -55,4 +55,5 @@ const timeCapsuleDao = {
   }
 }
 
+
 export default timeCapsuleDao;

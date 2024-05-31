@@ -58,6 +58,31 @@ class GCapsule extends Sequelize.Model {
   static associate(models) {
     GCapsule.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
   }
+
+  static getIncludeAttributes() {
+    return [
+      'id',
+      'title',
+      'tag',
+      'body',
+      'expired',
+      'goalCount',
+      'numInterval',
+      'goalReps',
+      'nowCount',
+      'isFailed',
+      'isSuccess',
+      'createdAt',
+      'updatedAt',
+      'deletedAt',
+      'userId',
+      ];
+  }
+  static getIncludeAttributesId() {
+    return [
+      'id',
+      ];
+  }
 }
 
 export default GCapsule;

@@ -1,8 +1,10 @@
 import userDao from '../dao/userDao.js';
 import hashUtil from '../lib/hashUtil.js';
+import logger from '../lib/logger.js';
 
 const userService = {
   async reg(params){
+    logger.info('userService reg', params);
 
     let hashPassword = null;
 
@@ -10,6 +12,7 @@ const userService = {
       hashPassword = await hashUtil.makeHashPassword(params.password);
     } catch (error) {
       return new Promise((resolve, reject) => {
+        logger.error('userService reg hashPassword error', error);
         reject(error);
       });
     }
@@ -22,18 +25,22 @@ const userService = {
       const insert = await userDao.insert(newParams);
       return insert;
     } catch (error) {
+      logger.error('userService reg insert error', error);
       throw new Error(error);
     }
   },
 
   async list() {
+    logger.info('userService list');
     let allUser = null;
     try {
       allUser = await userDao.selectAll();
+      logger.info('userService list allUsers', allUser);
       
       if(!allUser) {
         const err = new Error('No user');
         return new Promise((resolve, reject) => {
+          logger.error('userService list allUser is null');
           reject(err);
         });
       }
@@ -42,13 +49,50 @@ const userService = {
       });
     } catch (error) {
       return new Promise((resolve, reject) => {
+        logger.error('userService list error', error);
         reject(error);
       });
     }
-
-
   },
 
+  async getOneUser(params) {
+    logger.info('userService getOneUser', params);
+    try {
+      const oneCapsule = await userDao.selectUser(params);
+      return oneCapsule;
+    } catch (error) {
+      logger.error('userService getOneUser error', error);
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  },
+
+  async updateUser(params) {
+    logger.info('userService updateUser', params);
+    try {
+      const updatedUser = await userDao.update(params);
+      return updatedUser;
+    } catch (error) {
+      logger.error('userService updateUser error', error);
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  },
+
+  async deleteUser(params) {
+    logger.info('userService deleteUser', params);
+    try {
+      const deletedUser = await userDao.delete(params);
+      return deletedUser;
+    } catch (error) {
+      logger.error('userService deleteUser error', error);
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  },
 
   async login(params) {
     let user = null;

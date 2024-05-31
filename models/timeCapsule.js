@@ -18,7 +18,11 @@ class TCapsule extends Sequelize.Model {
       status: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
-      }
+      },
+      createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
+    }
     }, {
       sequelize,
       timestamps: true,

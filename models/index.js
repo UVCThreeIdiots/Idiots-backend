@@ -3,6 +3,7 @@ import User from "./user.js";
 import TCapsule from './timeCapsule.js';
 import GCapsule from './goalCapsule.js';
 
+
 const db = {}
 
 db.sequelize = sequelize;

@@ -1,19 +1,19 @@
 import sequelize from "./connection.js";
 import User from "./user.js";
-import Capsule from './timeCapsule.js';
+import TCapsule from './timeCapsule.js';
 
 const db = {}
 
 db.sequelize = sequelize;
 
 db.User = User;
-db.Capsule = Capsule;
+db.TCapsule = TCapsule;
 
 
 User.init(sequelize);
-Capsule.init(sequelize);
+TCapsule.init(sequelize);
 
 User.associate(db);
-Capsule.associate(db);
+TCapsule.associate(db);
 
 export default db;

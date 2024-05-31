@@ -1,9 +1,9 @@
 import express from 'express';
-import capsuleService from '../services/capsuleService.js';
+import capsuleService from '../services/timeCapsuleService.js';
 
 const router = express.Router();
 
-router.post('/createCapsule', async(req, res) => {
+router.post('/', async(req, res) => {
  
 
   try{

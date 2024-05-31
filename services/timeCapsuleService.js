@@ -1,4 +1,4 @@
-import CapsuleDao from '../dao/capsuleDao.js';
+import CapsuleDao from '../dao/timeCapsuleDao.js';
 
 const capsuleService = {
   async createCapsule(params) {

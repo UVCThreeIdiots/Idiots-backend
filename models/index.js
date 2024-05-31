@@ -1,6 +1,6 @@
 import sequelize from "./connection.js";
 import User from "./user.js";
-import Capsule from './capsule.js';
+import Capsule from './timeCapsule.js';
 
 const db = {}
 

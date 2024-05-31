@@ -1,11 +1,11 @@
-import Capsule from '../models/capsule.js';
+import Capsule from '../models/timeCapsule.js';
 
 const CapsuleDao = {
   insert(params) {
     return new Promise((resolve, reject) => {
       Capsule.create(params)
-       .then(result => resolve(result))
-       .catch(err => reject(err))
+      .then(result => resolve(result))
+      .catch(err => reject(err))
     })
   }
 }

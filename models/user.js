@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import Capsule from './capsule.js';
+import Capsule from './timeCapsule.js';
 
 class User extends Sequelize.Model {
   static init(sequelize) {

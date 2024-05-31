@@ -1,9 +1,9 @@
-import CapsuleDao from '../dao/timeCapsuleDao.js';
+import TimeCapsuleDao from '../dao/timeCapsuleDao.js';
 
-const capsuleService = {
+const timeCapsuleService = {
   async createCapsule(params) {
     try {
-      const newCapsule = await CapsuleDao.insert(params);
+      const newCapsule = await TimeCapsuleDao.insert(params);
       return newCapsule;
     } catch (error) {
       console.log('이 에러가 발생함 : ' , error);
@@ -11,4 +11,4 @@ const capsuleService = {
   }
 }
 
-export default capsuleService;
+export default timeCapsuleService;

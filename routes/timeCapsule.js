@@ -1,10 +1,9 @@
 import express from 'express';
-import capsuleService from '../services/timeCapsuleService.js';
+import timeCapsuleService from '../services/timeCapsuleService.js';
 
 const router = express.Router();
 
 router.post('/', async(req, res) => {
- 
 
   try{
     const params = {
@@ -13,7 +12,7 @@ router.post('/', async(req, res) => {
       body: req.body.body,
     }
     
-    const result = await capsuleService.createCapsule(params);
+    const result = await timeCapsuleService.createCapsule(params);
     res.status(200).json(result);
   } catch(err){
     console.log('라우터에서 에러가 발생함 : ', err);

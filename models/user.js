@@ -1,5 +1,4 @@
 import { Sequelize } from "sequelize";
-import Capsule from './timeCapsule.js';
 
 class User extends Sequelize.Model {
   static init(sequelize) {
@@ -32,7 +31,6 @@ class User extends Sequelize.Model {
       },
     }, {
       sequelize,
-      // modelName: 'user',
       underscored: true, // true: underscored, false: camelCase
       timestamps: true, // createAt, updatedAt
       paranoid: true, // deletedAt
@@ -40,7 +38,12 @@ class User extends Sequelize.Model {
   }
 
   static associate(models) {
-    User.hasMany(models.Capsule, { foreignKey: 'userId', as: 'capsules' });
+    User.hasMany(models.TCapsule, { foreignKey: 'userId', as: 'tCapsules' });
+    User.hasMany(models.GCapsule, { foreignKey: 'userId', as: 'gCapsules' });
+  }
+
+  static getIncludeAttributes() {
+    return ['id', 'userId', 'password', 'name', 'age', 'email', 'updatedAt', 'createdAt', 'deletedAt'];
   }
 }
 

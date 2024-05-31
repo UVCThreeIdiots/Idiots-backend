@@ -15,7 +15,7 @@ const userDao = {
   selectUser(params) {
     return new Promise((resolve, reject) => {
       User.findOne({
-        attributes: ['id', 'userId', 'password', 'name', 'age', 'email'],
+        attributes: ['id', 'userId', 'password', 'name', 'age', 'email','updatedAt', 'createdAt', 'deletedAt'],
         where: { userId: params.userId },
       }).then((selectedOne) => {
         resolve(selectedOne);
@@ -28,7 +28,7 @@ const userDao = {
   selectAll() {
     return new Promise((resolve, reject) => {
       User.findAll({
-        attributes: ['id', 'userId', 'password', 'name', 'age', 'email'],
+        attributes: ['id', 'userId', 'password', 'name', 'age', 'email', 'updatedAt', 'createdAt', 'deletedAt'],
       }).then((selectedAll) => {
         resolve(selectedAll);
       }).catch((err) => {

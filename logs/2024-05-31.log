@@ -1,0 +1,106 @@
+2024-05-31 15:11:47 [info] [POST] /goal/ 
+2024-05-31 15:11:47 [info] goalCapsuleService createCapsule
+2024-05-31 15:11:47 [info] goalCapsuleDao insert
+2024-05-31 15:11:47 [error] goalCapsuleDao insert error invalid input syntax for type timestamp with time zone: "Invalid date"
+2024-05-31 15:11:47 [error] goalCapsuleService createCapsule error invalid input syntax for type timestamp with time zone: "Invalid date"
+2024-05-31 15:11:47 [error] [POST] /goal/ res error invalid input syntax for type timestamp with time zone: "Invalid date"
+2024-05-31 15:54:10 [info] [POST] /goal/ 
+2024-05-31 15:54:10 [info] goalCapsuleService createCapsule
+2024-05-31 15:54:10 [info] goalCapsuleDao insert
+2024-05-31 15:54:10 [error] goalCapsuleDao insert error invalid input syntax for type timestamp with time zone: "Invalid date"
+2024-05-31 15:54:10 [error] goalCapsuleService createCapsule error invalid input syntax for type timestamp with time zone: "Invalid date"
+2024-05-31 15:54:10 [error] [POST] /goal/ res error invalid input syntax for type timestamp with time zone: "Invalid date"
+2024-05-31 15:57:26 [info] [POST] /goal/ 
+2024-05-31 15:57:26 [info] goalCapsuleService createCapsule
+2024-05-31 15:57:26 [info] goalCapsuleDao insert
+2024-05-31 15:57:27 [info] goalCapsuleDao insert result
+2024-05-31 15:59:42 [info] [POST] /goal/ 
+2024-05-31 15:59:42 [info] goalCapsuleService createCapsule
+2024-05-31 15:59:42 [info] goalCapsuleDao insert
+2024-05-31 15:59:42 [info] goalCapsuleDao insert result
+2024-05-31 16:01:57 [info] [POST] /goal/ 
+2024-05-31 16:01:57 [info] goalCapsuleService createCapsule
+2024-05-31 16:01:57 [info] goalCapsuleDao insert
+2024-05-31 16:01:57 [error] goalCapsuleDao insert error insert or update on table "g_capsules" violates foreign key constraint "g_capsules_user_id_fkey"
+2024-05-31 16:01:57 [error] goalCapsuleService createCapsule error insert or update on table "g_capsules" violates foreign key constraint "g_capsules_user_id_fkey"
+2024-05-31 16:01:57 [error] [POST] /goal/ res error insert or update on table "g_capsules" violates foreign key constraint "g_capsules_user_id_fkey"
+2024-05-31 16:02:12 [info] [POST] /goal/ 
+2024-05-31 16:02:12 [info] goalCapsuleService createCapsule
+2024-05-31 16:02:12 [info] goalCapsuleDao insert
+2024-05-31 16:02:12 [info] goalCapsuleDao insert result
+2024-05-31 16:02:47 [info] [POST] /goal/ 
+2024-05-31 16:02:47 [info] goalCapsuleService createCapsule
+2024-05-31 16:02:48 [info] goalCapsuleDao insert
+2024-05-31 16:02:48 [info] goalCapsuleDao insert result
+2024-05-31 16:03:41 [info] [POST] /goal/ 
+2024-05-31 16:03:41 [info] goalCapsuleService createCapsule
+2024-05-31 16:03:41 [info] goalCapsuleDao insert
+2024-05-31 16:03:41 [info] goalCapsuleDao insert result
+2024-05-31 16:04:24 [info] [POST] /goal/ 
+2024-05-31 16:04:24 [info] goalCapsuleService createCapsule
+2024-05-31 16:04:24 [info] goalCapsuleDao insert
+2024-05-31 16:04:24 [info] goalCapsuleDao insert result
+2024-05-31 16:05:35 [info] [GET] /goal/:id 
+2024-05-31 16:05:35 [info] goalCapsuleService getOneCapsule
+2024-05-31 16:05:35 [info] goalCapsuleDao selectOne
+2024-05-31 16:05:35 [error] goalCapsuleDao selectOne error column GCapsule.deleteAt does not exist
+2024-05-31 16:05:35 [error] goalCapsuleService getOneCapsule error column GCapsule.deleteAt does not exist
+2024-05-31 16:05:35 [error] [GET] /goal/:id res error column GCapsule.deleteAt does not exist
+2024-05-31 16:07:00 [info] [POST] /goal/ 
+2024-05-31 16:07:00 [info] goalCapsuleService createCapsule
+2024-05-31 16:07:00 [info] goalCapsuleDao insert
+2024-05-31 16:07:00 [info] goalCapsuleDao insert result
+2024-05-31 16:07:05 [info] [GET] /goal/:id 
+2024-05-31 16:07:05 [info] goalCapsuleService getOneCapsule
+2024-05-31 16:07:05 [info] goalCapsuleDao selectOne
+2024-05-31 16:07:05 [error] goalCapsuleDao selectOne error column GCapsule.deleteAt does not exist
+2024-05-31 16:07:05 [error] goalCapsuleService getOneCapsule error column GCapsule.deleteAt does not exist
+2024-05-31 16:07:05 [error] [GET] /goal/:id res error column GCapsule.deleteAt does not exist
+2024-05-31 16:09:30 [info] [GET] /goal/:id 
+2024-05-31 16:09:30 [info] goalCapsuleService getOneCapsule
+2024-05-31 16:09:30 [info] goalCapsuleDao selectOne
+2024-05-31 16:09:30 [info] goalCapsuleDao selectOne result
+2024-05-31 16:09:38 [info] [GET] /goal/:id 
+2024-05-31 16:09:38 [info] goalCapsuleService getOneCapsule
+2024-05-31 16:09:38 [info] goalCapsuleDao selectOne
+2024-05-31 16:09:38 [error] goalCapsuleDao selectOne error invalid input syntax for type integer: "all"
+2024-05-31 16:09:38 [error] goalCapsuleService getOneCapsule error invalid input syntax for type integer: "all"
+2024-05-31 16:09:38 [error] [GET] /goal/:id res error invalid input syntax for type integer: "all"
+2024-05-31 16:10:47 [info] [GET] /goal/:id 
+2024-05-31 16:10:47 [info] goalCapsuleService getOneCapsule
+2024-05-31 16:10:47 [info] goalCapsuleDao selectOne
+2024-05-31 16:10:47 [error] goalCapsuleDao selectOne error invalid input syntax for type integer: "all"
+2024-05-31 16:10:47 [error] goalCapsuleService getOneCapsule error invalid input syntax for type integer: "all"
+2024-05-31 16:10:47 [error] [GET] /goal/:id res error invalid input syntax for type integer: "all"
+2024-05-31 16:12:04 [info] [GET] /goal/:id 
+2024-05-31 16:12:04 [info] goalCapsuleService getOneCapsule
+2024-05-31 16:12:04 [info] goalCapsuleDao selectOne
+2024-05-31 16:12:04 [error] goalCapsuleDao selectOne error invalid input syntax for type integer: "all"
+2024-05-31 16:12:04 [error] goalCapsuleService getOneCapsule error invalid input syntax for type integer: "all"
+2024-05-31 16:12:04 [error] [GET] /goal/:id res error invalid input syntax for type integer: "all"
+2024-05-31 16:13:56 [info] [GET] /goal/all 
+2024-05-31 16:13:56 [info] goalCapsuleService getAllCapsule
+2024-05-31 16:13:56 [info] goalCapsuleDao selectAll
+2024-05-31 16:13:56 [error] goalCapsuleDao selectAll error column GCapsule.deleteAt does not exist
+2024-05-31 16:13:56 [error] goalCapsuleService getAllCapsule error column GCapsule.deleteAt does not exist
+2024-05-31 16:13:56 [error] [GET] /goal/all res error column GCapsule.deleteAt does not exist
+2024-05-31 16:14:20 [info] [GET] /goal/all 
+2024-05-31 16:14:20 [info] goalCapsuleService getAllCapsule
+2024-05-31 16:14:20 [info] goalCapsuleDao selectAll
+2024-05-31 16:14:20 [info] goalCapsuleDao selectAll result
+2024-05-31 16:15:14 [info] [PUT] /goal/:id 
+2024-05-31 16:15:14 [info] goalCapsuleService updateCapsule
+2024-05-31 16:15:14 [info] goalCapsuleDao update
+2024-05-31 16:15:14 [info] goalCapsuleDao update result
+2024-05-31 16:15:52 [info] [POST] /goal/ 
+2024-05-31 16:15:52 [info] goalCapsuleService createCapsule
+2024-05-31 16:15:52 [info] goalCapsuleDao insert
+2024-05-31 16:15:52 [info] goalCapsuleDao insert result
+2024-05-31 16:16:27 [info] [DELETE] /goal/:id 
+2024-05-31 16:16:27 [info] goalCapsuleService deleteCapsule
+2024-05-31 16:16:27 [info] goalCapsuleDao delete
+2024-05-31 16:16:27 [info] goalCapsuleDao delete result
+2024-05-31 16:16:43 [info] [GET] /goal/:id 
+2024-05-31 16:16:43 [info] goalCapsuleService getOneCapsule
+2024-05-31 16:16:43 [info] goalCapsuleDao selectOne
+2024-05-31 16:16:43 [info] goalCapsuleDao selectOne result

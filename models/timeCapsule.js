@@ -1,13 +1,8 @@
 import { DataTypes, Sequelize } from "sequelize";
-import User from './user.js';
 
-class Capsule extends Sequelize.Model {
+class TCapsule extends Sequelize.Model {
   static init(sequelize){
     return super.init({
-      // userId: {
-      //   type: DataTypes.INTEGER(),
-      //   allowNull: false,
-      // },
       title: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -26,7 +21,6 @@ class Capsule extends Sequelize.Model {
       }
     }, {
       sequelize,
-      // modelName: 'capsule',
       timestamps: true,
       underscored: true, // true: underscored, false: camelCase
       createdAt: true,
@@ -34,8 +28,8 @@ class Capsule extends Sequelize.Model {
     });
   }
   static associate(models) {
-    Capsule.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+    TCapsule.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
   }
 }
 
-export default Capsule;
+export default TCapsule;

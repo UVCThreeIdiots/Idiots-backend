@@ -11,9 +11,9 @@ router.post('/', async(req, res) => {
       userId: req.body.userId,
       title: req.body.title,
       body: req.body.body,
+      expired: req.body.expired || null,
     }
     
-
     const result = await TCapsuleService.createCapsule(params);
     logger.info('TCapsule.routes run success');
     res.status(200).json(result);
@@ -32,7 +32,7 @@ router.get('/allTCapsules', async(req, res) => {
   } catch (error) {
     logger.error(`getAllTCapsules.router's error: ${error.message}`); 
     res.status(400).json({ message: err.message });
-}
+  }
 });
 
 // 특정 id 타임캡슐 조회 ( 어드민 권한 )
@@ -45,11 +45,12 @@ router.get('/TCapsule/:id', async(req, res) => {
     const timeCapsuleById = await TCapsuleService.getTCapsuleById(params);
     logger.info('TCapsuleById.router is run successfully')
     res.status(200).json(timeCapsuleById);
-  }catch(error){
+  } catch(error){
     logger.error(`getTCapsuleById.router's error: ${error.message}`);
     res.status(400).json({ message: error.message });
   }
 });
+
 // 타임캡슐 수정 요청 ( 어드민 권한 )
 router.put('/updateTCapsule/:id', async(req, res) => {
   try {
@@ -57,6 +58,7 @@ router.put('/updateTCapsule/:id', async(req, res) => {
       id: req.params.id,
       title: req.body.title,
       body: req.body.body,
+      status: req.body.status || null,
     };
     const updateTCapsuleById = await TCapsuleService.updateTCapsuleById(params);
     logger.info('updateTCapsuleById.router is run successfully');

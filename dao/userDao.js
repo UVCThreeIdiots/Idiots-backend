@@ -8,7 +8,7 @@ const userDao = {
     logger.info('userDao insert', params);
     return new Promise((resolve, reject) => {
       User.create(params).then((inserted) => {
-        logger.info('userDao insert result', result);
+        logger.info('userDao insert result', inserted);
         resolve(inserted);
       }).catch((err) => {
         logger.error('goalCapsuleDao insert error', err);

@@ -6,6 +6,9 @@ const router = express.Router();
 
 
 router.post('/', async (req, res) => {
+  logger.info("[POST] /user ")
+
+  console.log(req)
   try {
     const params = {
       name: req.body.name,

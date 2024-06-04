@@ -97,7 +97,7 @@ const userService = {
   async login(params) {
     let user = null;
     try {
-      user = await userDao.selectUser(params);
+      user = await userDao.loginUser(params);
       // 해당 사용자가 없는 경우 튕겨냄
       if (!user) {
         const err = new Error('Incorect userid');

@@ -1,6 +1,8 @@
 import PgBoss from 'pg-boss';
 import dotenv from 'dotenv';
 import sendEmail from './email.js';
+import TCapsuleService from '../services/timeCapsuleService.js'
+import userDao from '../dao/userDao.js';
 dotenv.config();
 
 const boss = new PgBoss({
@@ -14,8 +16,13 @@ boss.on('error', error => console.error('pgBoss error:', error));
 // 작업 정의
 boss.work('time-capsule', async (job) => {
   console.log('start - 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀');
-  const { userId, title, body, expired, status, mail } = job.data;
-  const to = mail;
+  const { userId, title, body, expired, status, capsuleId} = job.data;
+  const user = await userDao.selectUser({id : userId});
+  const userMail = user.email;
+  
+  console.log("🚀 ~ createCapsule ~ userMail:", userMail)
+
+  const to = userMail;
   const subject = '1 mail';
   const text = `
     User ID: ${userId}
@@ -23,10 +30,11 @@ boss.work('time-capsule', async (job) => {
     Body: ${body}
     Expired: ${expired}
     Status: ${status}
+    Capsule ID: ${capsuleId}
   `;
-  console.log(to)
   try {
     await sendEmail(to, subject, text);
+    await TCapsuleService.updateTCapsuleById({id: capsuleId, status: true})
     console.log('Email sent successfully - 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀');
   } catch (error) {
     console.log('Error sending email: ', error);

@@ -17,9 +17,6 @@ const TCapsuleService = {
       const scheduleTime = moment.tz(newParams.expired, 'Asia/Seoul').toDate();
       
       const newCapsule = await timeCapsuleDao.insert(newParams);
-      const user = await userDao.selectUser({id : newCapsule.userId});
-      const userMail = user.email;
-      console.log("🚀 ~ createCapsule ~ userMail:", userMail)
       // job queque
       const jobId = await boss.send('time-capsule',
         { 
@@ -28,9 +25,9 @@ const TCapsuleService = {
           body: newParams.body,
           expired: newParams.expired,
           status: newParams.status,
-          mail: userMail,
+          capsuleId: newCapsule.id,
         },
-        { startAfter: scheduleTime });
+        { startAfter: 5 });
         
         if (!jobId || jobId.length === 0) {
           console.error('Failed to schedule job: Job ID is empty');

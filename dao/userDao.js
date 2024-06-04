@@ -32,10 +32,26 @@ const userDao = {
         ],
         where: { id: params.id },
       }).then((selectedOne) => {
-        logger.info('userDao selectUser result');
+        logger.info('userDao selectUser result', selectedOne.dataValues);
         resolve(selectedOne);
       }).catch((err) => {
         logger.error('userDao selectUser error', err);
+        reject(err);
+      });
+    });
+  },
+
+  loginUser(params) {
+    logger.info('userDao loginUser', params);
+    return new Promise((resolve, reject) => {
+      User.findOne({
+        attributes: ['id', 'userId', 'password', 'name', 'age', 'email','updatedAt', 'createdAt', 'deletedAt'],
+        where: { userId: params.userId },
+      }).then((selectedOne) => {
+        logger.info('userDao loginUser result', selectedOne.dataValues);
+        resolve(selectedOne);
+      }).catch((err) => {
+        logger.error('userDao loginUser error', err);
         reject(err);
       });
     });
@@ -72,7 +88,7 @@ const userDao = {
           where: { id: params.id },
         },
       ).then(([updated]) => {
-        logger.info('userDao update result', updated);
+        logger.info('userDao update result', updated.dataValues);
         resolve({ updatedCount: updated });
       }).catch((err) => {
         logger.error('userDao update error', err);

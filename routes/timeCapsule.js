@@ -11,7 +11,8 @@ router.post('/', async(req, res) => {
       userId: req.body.userId,
       title: req.body.title,
       body: req.body.body,
-      expired: req.body.expired || null,
+      expired: req.body.expired,
+      status: req.body.status || false,
     }
     
     const result = await TCapsuleService.createCapsule(params);

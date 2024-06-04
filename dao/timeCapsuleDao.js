@@ -6,7 +6,7 @@ const timeCapsuleDao = {
   // 타임캡슐 등록
   insert(params) {
     logger.info('timeCapsule insert', params);
-      return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       TCapsule.create(params)
       .then(result => {
         logger.info('timeCapsule insert result', result);

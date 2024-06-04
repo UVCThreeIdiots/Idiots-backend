@@ -1,36 +1,55 @@
-import { DataTypes, Sequelize } from "sequelize";
+import { Sequelize } from "sequelize";
 
 class TCapsule extends Sequelize.Model {
   static init(sequelize){
     return super.init({
       title: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING(255),
         allowNull: false,
       },
       body:{
-        type: DataTypes.TEXT(),
+        type: Sequelize.TEXT(),
         allowNull: false,
       },
       expired: {
-        type: DataTypes.STRING,
+        type: Sequelize.STRING(255),
         allowNull: false,
       },
       status: {
-        type: DataTypes.BOOLEAN,
+        type: Sequelize.BOOLEAN,
         allowNull: true,
         defaultValue: false,
-      },
+      }
     }, {
       sequelize,
       timestamps: true,
       underscored: true, // true: underscored, false: camelCase
       createdAt: true,
-      updatedAt: false
+      paranoid: true, // deletedAt
     });
   }
   static associate(models) {
     TCapsule.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
   }
+
+  static getIncludeAttributes() {
+    return [
+      'id',
+      'title',
+      'body',
+      'expired',
+      'status',
+      'createdAt',
+      'updatedAt',
+      'deletedAt',
+      ];
+  }
+  static getIncludeAttributesId() {
+    return [
+      'id',
+      ];
+  }
 }
+
 
 export default TCapsule;

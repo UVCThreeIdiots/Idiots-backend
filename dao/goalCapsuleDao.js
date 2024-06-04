@@ -27,7 +27,6 @@ const GoalCapsuleDao = {
         attributes: [
         'id',
         'title',
-        'tag',
         'body',
         'expired',
         'goalCount',
@@ -65,7 +64,6 @@ const GoalCapsuleDao = {
         attributes: [
           'id',
           'title',
-          'tag',
           'body',
           'expired',
           'goalCount',
@@ -133,4 +131,4 @@ const GoalCapsuleDao = {
 
 export default GoalCapsuleDao;
 
-// ['title', 'tag', 'body', 'expired', 'goalCount', 'numInterval', 'goalReps', 'nowCount', 'isFailed', 'isSuccess']
+// ['title', 'body', 'expired', 'goalCount', 'numInterval', 'goalReps', 'nowCount', 'isFailed', 'isSuccess']

@@ -7,10 +7,6 @@ class GCapsule extends Sequelize.Model {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
-      tag: {
-        type: Sequelize.ARRAY(Sequelize.STRING(50)),
-        allowNull: false,
-      },
       body:{
         type: Sequelize.TEXT(),
         allowNull: false,
@@ -63,7 +59,6 @@ class GCapsule extends Sequelize.Model {
     return [
       'id',
       'title',
-      'tag',
       'body',
       'expired',
       'goalCount',
@@ -75,7 +70,6 @@ class GCapsule extends Sequelize.Model {
       'createdAt',
       'updatedAt',
       'deletedAt',
-      'userId',
       ];
   }
   static getIncludeAttributesId() {

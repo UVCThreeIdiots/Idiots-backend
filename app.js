@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import boss from './config/pgBoss.js';
 
 import db from './models/index.js';
 
@@ -25,9 +26,13 @@ app.use(cookieParser());  // 쿠키 파싱 (req.cookies로 접근 가능)
 
 db.sequelize.authenticate().then(() => {
   console.log('DB connection Success!');
-
-  db.sequelize.sync({alter: true}).then(() => {
+  db.sequelize.sync({alter: true}).then(async () => {
     console.log('DB sync Success!');
+    boss.start().then(() => {
+      console.log('pgBoss started');
+    }).catch((err) => {
+      console.error('db sync error', err);
+    });
   }).catch((err) => { console.error('db sync error', err); });
 }).catch((err) => { console.error('db connect fail!', err); });
 

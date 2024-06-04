@@ -3,6 +3,7 @@ import logger from '../lib/logger.js';
 import GCapsule from '../models/goalCapsule.js';
 
 
+
 const userDao = {
   insert(params) {
     logger.info('userDao insert', params);
@@ -27,11 +28,11 @@ const userDao = {
             model: GCapsule,
             as: 'gCapsules',
             attributes: GCapsule.getIncludeAttributes()
-          }
+          },
         ],
         where: { id: params.id },
       }).then((selectedOne) => {
-        logger.info('userDao selectUser result', selectedOne);
+        logger.info('userDao selectUser result');
         resolve(selectedOne);
       }).catch((err) => {
         logger.error('userDao selectUser error', err);

@@ -10,7 +10,6 @@ router.post('/', async (req, res) => {
   try {
     const params = {
       title: req.body.title,
-      tag: req.body.tag,
       body: req.body.body,
       expired:  req.body.expired || null,
       goalCount: req.body.goalCount || null,
@@ -68,7 +67,6 @@ router.put('/:id', async (req, res) => {
     const params = {
       id: req.params.id,
       title: req.body.title,
-      tag: req.body.tag,
       body: req.body.body,
       expired:  req.body.expired,
       goalCount: req.body.goalCount,

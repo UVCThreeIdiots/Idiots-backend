@@ -32,7 +32,7 @@ const userDao = {
         ],
         where: { id: params.id },
       }).then((selectedOne) => {
-        logger.info('userDao selectUser result', selectedOne);
+        logger.info('userDao selectUser result');
         resolve(selectedOne);
       }).catch((err) => {
         logger.error('userDao selectUser error', err);

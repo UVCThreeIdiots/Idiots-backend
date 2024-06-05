@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import boss from './config/pgBoss.js';
+import './config/schedule.js';
 
 import db from './models/index.js';
 

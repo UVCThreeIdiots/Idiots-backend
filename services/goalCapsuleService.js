@@ -60,6 +60,11 @@ const goalCapsuleService = {
     logger.info('goalCapsuleService updateCapsule', params);
     try {
       const updatedCapsule = await GoalCapsuleDao.update(params);
+      if (updatedCapsule.nowCount === updatedCapsule.goalCount) {
+        const newUpdatedCapsule = await GoalCapsuleDao.update({id : params.id, isSuccess: true});
+        logger.info('goalCapsuleService newUpdatedCapsule', newUpdatedCapsule);
+        return newUpdatedCapsule;
+      }
       return updatedCapsule;
     } catch (error) {
       logger.error('goalCapsuleService updateCapsule error', error);

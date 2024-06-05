@@ -83,7 +83,7 @@ const GoalCapsuleDao = {
             attributes: User.getIncludeAttributes(),
           }],
       }).then((selectedAll) => {
-        logger.info('goalCapsuleDao selectAll result', selectedAll);
+        logger.info('goalCapsuleDao selectAll result');
         resolve(selectedAll);
       }).catch((err) => {
         logger.error('goalCapsuleDao selectAll error', err);

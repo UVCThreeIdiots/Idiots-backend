@@ -25,20 +25,20 @@ const GoalCapsuleDao = {
     return new Promise((resolve, reject) => {
       GCapsule.findOne({
         attributes: [
-        'id',
-        'title',
-        'body',
-        'expired',
-        'goalCount',
-        'numInterval',
-        'goalReps',
-        'nowCount',
-        'isFailed',
-        'isSuccess',
-        'createdAt',
-        'updatedAt',
-        'deletedAt',
-        'userId',
+          'id',
+          'userId',
+          'title',
+          'body',
+          'expired',
+          'goalCount',
+          'goalTerm',
+          'nowCount',
+          'dailyCheck',
+          'isFailed',
+          'isSuccess',
+          'createdAt',
+          'updatedAt',
+          'deletedAt',
         ],
         include: [{
           model: User,
@@ -63,20 +63,20 @@ const GoalCapsuleDao = {
       GCapsule.findAll({
         attributes: [
           'id',
+          'userId',
           'title',
           'body',
           'expired',
           'goalCount',
-          'numInterval',
-          'goalReps',
+          'goalTerm',
           'nowCount',
+          'dailyCheck',
           'isFailed',
           'isSuccess',
           'createdAt',
           'updatedAt',
           'deletedAt',
-          'userId',
-          ],
+        ],
           include: [{
             model: User,
             as: 'user',
@@ -99,12 +99,12 @@ const GoalCapsuleDao = {
     return new Promise((resolve, reject) => {
       GCapsule.update(
         params,
-        {
+        { returning: true,
           where: { id: params.id },
         },
-      ).then(([updated]) => {
-        logger.info('goalCapsuleDao update result', updated);
-        resolve({ updatedCount: updated });
+      ).then(([ updatedCount, updatedContent ]) => {
+        logger.info('goalCapsuleDao update result', updatedCount, updatedContent);
+        resolve( updatedContent[0] );
       }).catch((err) => {
         logger.error('goalCapsuleDao update error', err);
         reject(err);

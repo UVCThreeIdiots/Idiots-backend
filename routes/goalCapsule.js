@@ -1,6 +1,7 @@
 import express from 'express';
 import goalCapsuleService from '../services/goalCapsuleService.js';
 import logger from '../lib/logger.js';
+import time from '../lib/timeUtil.js';
 
 const router = express.Router();
 
@@ -9,16 +10,16 @@ router.post('/', async (req, res) => {
   logger.info('[POST] /goal/ ', req.body);
   try {
     const params = {
-      title: req.body.title,
-      body: req.body.body,
-      expired:  req.body.expired || null,
-      goalCount: req.body.goalCount || null,
-      numInterval: req.body.numInterval || null,
-      goalReps: req.body.goalReps || null,
-      nowCount: req.body.nowCount || null,
-      isFailed: req.body.isFailed,
-      isSuccess: req.body.isSuccess,
       userId: req.body.userId,  //user pk
+      title: req.body.title,
+      body: req.body.body || null,
+      expired:  req.body.expired || time.getNow(),
+      goalCount: req.body.goalCount || 0,
+      goalTerm: req.body.goalTerm || 0,
+      nowCount: req.body.nowCount || 0,
+      dailyCheck: req.body.dailyCheck || false,
+      isFailed: req.body.isFailed || false,
+      isSuccess: req.body.isSuccess || false,
     }
     
     const result = await goalCapsuleService.createCapsule(params);
@@ -66,15 +67,12 @@ router.put('/:id', async (req, res) => {
   try {
     const params = {
       id: req.params.id,
+      userId: req.body.userId,  //user pk
       title: req.body.title,
-      body: req.body.body,
-      expired:  req.body.expired,
       goalCount: req.body.goalCount,
-      numInterval: req.body.numInterval,
-      goalReps: req.body.goalReps,
+      goalTerm: req.body.goalTerm,
       nowCount: req.body.nowCount,
-      isFailed: req.body.isFailed,
-      isSuccess: req.body.isSuccess,
+      dailyCheck: req.body.dailyCheck,
     }
 
     const result = await goalCapsuleService.updateCapsule(params);

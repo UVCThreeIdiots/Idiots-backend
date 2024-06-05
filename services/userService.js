@@ -72,7 +72,8 @@ const userService = {
     logger.info('userService updateUser', params);
 
     let newHashPassword = null;
-
+    let newParams = null;
+    
     if( params.password ){
       try{
         newHashPassword = await hashUtil.makeHashPassword(params.password);
@@ -83,31 +84,20 @@ const userService = {
         });
       }
   
-      const newParams = {
+      newParams = {
         ...params, 
         password: newHashPassword,
       };
-
-      try {
-        const updatedUser = await userDao.update(newParams);
-        return updatedUser;
-      } catch (error) {
-        logger.error('userService updateUser error', error);
-        return new Promise((resolve, reject) => {
-          reject(error);
-        });
-      }
-    }else {
-      try {
-        const updatedUser = await userDao.update(params);
-        return updatedUser;
-      } catch (error) {
-        logger.error('userService updateUser error', error);
-        return new Promise((resolve, reject) => {
-          reject(error);
-        });
-      }
-    }  
+    }
+    try {
+      const updatedUser = await userDao.update(newParams ? newParams : params);
+      return updatedUser;
+    } catch (error) {
+      logger.error('userService updateUser error', error);
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
   },
 
   async deleteUser(params) {

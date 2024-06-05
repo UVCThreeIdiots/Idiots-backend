@@ -85,11 +85,12 @@ const userDao = {
       User.update(
         params,
         {
+          returning: true,
           where: { id: params.id },
         },
-      ).then(([updated]) => {
-        logger.info('userDao update result', updated.dataValues);
-        resolve({ updatedCount: updated });
+      ).then(([updatedCount, updatedContent]) => {
+        logger.info('userDao update result', updatedContent, updatedCount);
+        resolve( updatedContent[0]);
       }).catch((err) => {
         logger.error('userDao update error', err);
         reject(err);

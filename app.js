@@ -31,7 +31,7 @@ db.sequelize.authenticate().then(() => {
     boss.start().then(() => {
       console.log('pgBoss started');
     }).catch((err) => {
-      console.error('db sync error', err);
+      console.error('pgBoss error', err);
     });
   }).catch((err) => { console.error('db sync error', err); });
 }).catch((err) => { console.error('db connect fail!', err); });

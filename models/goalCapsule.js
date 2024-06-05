@@ -9,7 +9,7 @@ class GCapsule extends Sequelize.Model {
       },
       body:{
         type: Sequelize.TEXT(),
-        allowNull: false,
+        allowNull: true,
       },
       expired: {
         type: Sequelize.STRING(255),
@@ -19,17 +19,18 @@ class GCapsule extends Sequelize.Model {
         type: Sequelize.INTEGER,
         allowNull: true,
       },
-      numInterval: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-      },
-      goalReps: {
+      goalTerm: {
         type: Sequelize.INTEGER,
         allowNull: true,
       },
       nowCount: {
         type: Sequelize.INTEGER,
         allowNull: true,
+      },
+      dailyCheck: {
+        type: Sequelize.BOOLEAN,
+        allowNull: true,
+        defaultValue: false,
       },
       isFailed: {
         type: Sequelize.BOOLEAN,
@@ -58,13 +59,14 @@ class GCapsule extends Sequelize.Model {
   static getIncludeAttributes() {
     return [
       'id',
+      'userId',
       'title',
       'body',
       'expired',
       'goalCount',
-      'numInterval',
-      'goalReps',
+      'goalTerm',
       'nowCount',
+      'dailyCheck',
       'isFailed',
       'isSuccess',
       'createdAt',

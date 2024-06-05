@@ -6,10 +6,19 @@ const goalCapsuleService = {
   async createCapsule(params) {
     logger.info('goalCapsuleService createCapsule', params);
     try {
-      const newExpired = time.changeFormat(params.expired)
+      const newGoalTerm = params.goalTerm * 7;
+      console.log("🚀 ~ createCapsule ~ params.goalTerm:", params.goalTerm)
+      console.log("🚀 ~ createCapsule ~ newGoalTerm:", newGoalTerm)
+      console.log("🚀 ~ createCapsule ~ params.expired:", params.expired)
+      const newExpired = time.addDay({
+        expired: params.expired,
+        goalTerm: newGoalTerm
+      });
+      console.log("🚀 ~ createCapsule ~ newExpired:", newExpired)
       const newParams = {
         ...params,
-        expired: newExpired
+        expired: newExpired,
+        goalTerm: newGoalTerm
       }
       const newCapsule = await GoalCapsuleDao.insert(newParams);
       return newCapsule;

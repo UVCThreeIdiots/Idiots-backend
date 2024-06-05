@@ -9,7 +9,7 @@ router.post('/', async(req, res) => {
   try{
     const params = {
       userId: req.body.userId,
-      title: req.body.title,
+      title: req.body.title || "empty",
       body: req.body.body,
       expired: req.body.expired,
       status: req.body.status || false,

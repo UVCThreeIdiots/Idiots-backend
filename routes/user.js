@@ -11,6 +11,7 @@ router.post('/', async (req, res) => {
   console.log(req)
   try {
     const params = {
+      admin: req.body.admin || false,
       name: req.body.name,
       age: req.body.age,
       userId: req.body.userId,

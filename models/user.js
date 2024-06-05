@@ -29,6 +29,10 @@ class User extends Sequelize.Model {
           isEmail: true,
         }
       },
+      admin: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      }
     }, {
       sequelize,
       underscored: true, // true: underscored, false: camelCase

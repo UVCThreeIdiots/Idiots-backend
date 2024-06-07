@@ -1,6 +1,7 @@
 import  User  from '../models/user.js';
 import logger from '../lib/logger.js';
 import GCapsule from '../models/goalCapsule.js';
+import TCapsule from '../models/timeCapsule.js';
 
 
 
@@ -27,7 +28,11 @@ const userDao = {
           {
             model: GCapsule,
             as: 'gCapsules',
-            attributes: GCapsule.getIncludeAttributes()
+            attributes: GCapsule.getIncludeAttributes(),
+          },{
+            model: TCapsule,
+            as: 'tCapsules',
+            attributes: TCapsule.getIncludeAttributes(),
           },
         ],
         where: { id: params.id },
@@ -61,7 +66,7 @@ const userDao = {
     logger.info('userDao loginUser', params);
     return new Promise((resolve, reject) => {
       User.findOne({
-        attributes: ['id', 'userId', 'password', 'name', 'age', 'email','updatedAt', 'createdAt', 'deletedAt'],
+        attributes: ['id', 'userId', 'password', 'name', 'age', 'email','updatedAt', 'createdAt', 'deletedAt', 'admin'],
         where: { userId: params.userId },
       }).then((selectedOne) => {
         logger.info('userDao loginUser result', selectedOne.dataValues);

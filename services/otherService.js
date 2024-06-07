@@ -1,5 +1,6 @@
 import logger from '../lib/logger.js';
 import userDao from '../dao/userDao.js'; 
+import capsuleDao from '../dao/capsuleDao.js';
 const otherService = {
 
   async checkExistEmail(params) {
@@ -14,6 +15,23 @@ const otherService = {
       });
     }
   },
+
+  async getOtherCapsules(params) {
+    logger.info('otherService getOtherCapsules', params);
+    try {
+      const allCapsule = await capsuleDao.selectAllByOtherId(params);
+
+      
+      return allCapsule;
+    } catch (error) {
+      logger.error('otherService getOtherCapsules error', error);
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  },
+
+  
 }
 
 export default otherService;

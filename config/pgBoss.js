@@ -16,9 +16,29 @@ boss.on('error', error => console.error('pgBoss error:', error));
 // 작업 정의
 boss.work('time-capsule', async (job) => {
   console.log('start - 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀');
-  const { userId, title, body, expired, status, capsuleId} = job.data;
-  const user = await userDao.selectUser({id : userId});
-  const userMail = user.email;
+  const { 
+    userId,
+    title,
+    body,
+    expired,
+    status,
+    capsuleId,
+    otherId,
+    otherEmail,
+  } = job.data;
+
+  let user = null;
+  let userMail = null;
+
+  if (!otherId && !otherEmail.length) {
+    user = await userDao.selectUser({id : userId});
+    userMail = user.email;
+  } else if (otherId){
+    user = await userDao.selectUser({id : otherId});
+    userMail = user.email;
+  } else {
+    userMail = otherEmail;
+  }
   
   console.log("🚀 ~ createCapsule ~ userMail:", userMail)
 

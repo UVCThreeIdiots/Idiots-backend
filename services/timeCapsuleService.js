@@ -26,6 +26,8 @@ const TCapsuleService = {
           expired: newParams.expired,
           status: newParams.status,
           capsuleId: newCapsule.id,
+          otherId: newParams.otherId,
+          otherEmail: newParams.otherEmail,
         },
         { startAfter: 5 });
         

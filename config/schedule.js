@@ -30,8 +30,14 @@ async function checkGoalAndUpdateDB() {
       params.isFailed = true;
       
       try {
-        const user = await userDao.selectUser({id: capsule.userId})
-        const to = user.email;
+        let userEmail = null;
+        if (capsule.email) {
+          userEmail = capsule.email; // 타인
+        } else {
+          user = await userDao.selectUser({id: capsule.userId}) //자신
+          userEmail = user.email;
+        }
+        const to = userEmail;
         const subject = "this is failed mail";
         const text = `
           User ID: ${user.userId}

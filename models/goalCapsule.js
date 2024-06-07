@@ -41,6 +41,12 @@ class GCapsule extends Sequelize.Model {
         type: Sequelize.BOOLEAN,
         allowNull: true,
         defaultValue: false,
+      },
+      otherId: {
+        type: Sequelize.INTEGER,
+      },
+      otherEmail: {
+        type : Sequelize.STRING(255),
       }
       
     }, {
@@ -68,6 +74,8 @@ class GCapsule extends Sequelize.Model {
       'nowCount',
       'dailyCheck',
       'isFailed',
+      'otherId',
+      'otherEmail',
       'isSuccess',
       'createdAt',
       'updatedAt',

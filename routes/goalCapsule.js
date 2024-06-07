@@ -20,6 +20,8 @@ router.post('/', async (req, res) => {
       dailyCheck: req.body.dailyCheck || false,
       isFailed: req.body.isFailed || false,
       isSuccess: req.body.isSuccess || false,
+      otherId: req.body.otherId || 0,
+      otherEmail: req.body.otherEmail || '',
     }
     
     const result = await goalCapsuleService.createCapsule(params);

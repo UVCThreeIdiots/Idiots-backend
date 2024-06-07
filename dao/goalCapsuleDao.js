@@ -37,6 +37,8 @@ const GoalCapsuleDao = {
           'dailyCheck',
           'isFailed',
           'isSuccess',
+          'otherId',
+          'otherEmail',
           'createdAt',
           'updatedAt',
           'deletedAt',
@@ -72,6 +74,8 @@ const GoalCapsuleDao = {
           'nowCount',
           'dailyCheck',
           'isFailed',
+          'otherId',
+          'otherEmail',
           'isSuccess',
           'createdAt',
           'updatedAt',
@@ -83,10 +87,18 @@ const GoalCapsuleDao = {
             attributes: User.getIncludeAttributes(),
           }],
           where: {
-            userId: params.userId,
-            [Op.and]: [
-              { isSuccess: false },
-              { isFailed: false }
+            [Op.or]: [
+              {
+                userId: params.userId,
+                [Op.and]: [
+                  { isSuccess: false },
+                  { isFailed: false },
+                ],
+                otherEmail: '', // otherEmail이 빈 값인 경우
+              },
+              {
+                otherID: params.userId
+              }
             ]
           },
           order: [['id', 'ASC']] // id 기준으로 오름차순 정렬
@@ -116,6 +128,8 @@ const GoalCapsuleDao = {
           'dailyCheck',
           'isFailed',
           'isSuccess',
+          'otherId',
+          'otherEmail',
           'createdAt',
           'updatedAt',
           'deletedAt',

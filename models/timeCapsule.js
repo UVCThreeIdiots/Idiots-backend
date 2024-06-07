@@ -19,6 +19,12 @@ class TCapsule extends Sequelize.Model {
         type: Sequelize.BOOLEAN,
         allowNull: true,
         defaultValue: false,
+      },
+      otherId: {
+        type: Sequelize.INTEGER,
+      },
+      otherEmail: {
+        type : Sequelize.STRING(255),
       }
     }, {
       sequelize,
@@ -39,6 +45,8 @@ class TCapsule extends Sequelize.Model {
       'body',
       'expired',
       'status',
+      'otherId',
+      'otherEmail',
       'createdAt',
       'updatedAt',
       'deletedAt',

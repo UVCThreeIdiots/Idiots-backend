@@ -44,6 +44,22 @@ router.get('/all', async (req, res) => {
 
 });
 
+router.get('/user/:id', async (req, res) => {
+  logger.info("[GET] /goal/user/:id ", req.url);
+
+  try {
+    const params = {
+      userId: req.params.id,
+    }
+
+    const result = await goalCapsuleService.getAllByUserIdCapsule(params);
+    
+    res.status(200).json(result);
+  } catch (error) {
+    logger.error('[GET] /goal/user/:id res error', error);
+    res.status(400).json({message: error.message});
+  }
+});
 router.get('/:id', async (req, res) => {
   logger.info("[GET] /goal/:id ", req.url);
 

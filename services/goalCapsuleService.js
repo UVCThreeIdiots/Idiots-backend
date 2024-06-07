@@ -43,6 +43,19 @@ const goalCapsuleService = {
     }
   },
 
+  async getAllByUserIdCapsule(params) {
+    logger.info('goalCapsuleService getAllByUserIdCapsule', params);
+    try {
+      const oneCapsule = await GoalCapsuleDao.selectAllByUserId(params);
+      return oneCapsule;
+    } catch (error) {
+      logger.error('goalCapsuleService getAllByUserIdCapsule error', error);
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  },
+
   async getAllCapsule() {
     logger.info('goalCapsuleService getAllCapsule');
     try {

@@ -41,6 +41,22 @@ const userDao = {
     });
   },
 
+  selectUserByEmail(params) {
+    logger.info('userDao selectUserByEmail', params);
+    return new Promise((resolve, reject) => {
+      User.findOne({
+        attributes: ['id', 'userId', 'name','email'],
+        where: { email: params.email },
+      }).then((selectedOne) => {
+        logger.info('userDao selectUserByEmail result');
+        resolve(selectedOne);
+      }).catch((err) => {
+        logger.error('userDao selectUserByEmail error', err);
+        reject(err);
+      });
+    });
+  },
+
   loginUser(params) {
     logger.info('userDao loginUser', params);
     return new Promise((resolve, reject) => {
@@ -57,6 +73,7 @@ const userDao = {
     });
   },
   
+
   selectAll() {
     logger.info('userDao selectAll');
     return new Promise((resolve, reject) => {

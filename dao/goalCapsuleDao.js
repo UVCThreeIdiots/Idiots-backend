@@ -1,6 +1,8 @@
 import GCapsule from '../models/goalCapsule.js';
 import logger from '../lib/logger.js';
 import User from '../models/user.js';
+import { Op } from 'sequelize';
+
 
 const GoalCapsuleDao = {
   // 캡슐 삽입
@@ -19,7 +21,6 @@ const GoalCapsuleDao = {
     })
   },
 
-  // 캡슐 한개 조회
   selectOne(params) {
     logger.info('goalCapsuleDao selectOne', params);
     return new Promise((resolve, reject) => {
@@ -56,6 +57,48 @@ const GoalCapsuleDao = {
     });
   },
 
+  selectAllByUserId(params) {
+    logger.info('goalCapsuleDao selectAllByUserId');
+    return new Promise((resolve, reject) => {
+      GCapsule.findAll({
+        attributes: [
+          'id',
+          'userId',
+          'title',
+          'body',
+          'expired',
+          'goalCount',
+          'goalTerm',
+          'nowCount',
+          'dailyCheck',
+          'isFailed',
+          'isSuccess',
+          'createdAt',
+          'updatedAt',
+          'deletedAt',
+        ],
+          include: [{
+            model: User,
+            as: 'user',
+            attributes: User.getIncludeAttributes(),
+          }],
+          where: {
+            userId: params.userId,
+            [Op.and]: [
+              { isSuccess: false },
+              { isFailed: false }
+            ]
+          },
+          order: [['id', 'ASC']] // id 기준으로 오름차순 정렬
+      }).then((selectedAll) => {
+        logger.info('goalCapsuleDao selectAllByUserId result');
+        resolve(selectedAll);
+      }).catch((err) => {
+        logger.error('goalCapsuleDao selectAllByUserId error', err);
+        reject(err);
+      });
+    });
+  },
   // 캡슐 전체 조회
   selectAll() {
     logger.info('goalCapsuleDao selectAll');

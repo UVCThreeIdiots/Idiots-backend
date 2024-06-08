@@ -2,6 +2,8 @@ import userDao from '../dao/userDao.js';
 import hashUtil from '../lib/hashUtil.js';
 import logger from '../lib/logger.js';
 import capsuleDao from '../dao/capsuleDao.js';
+import GoalCapsuleDao from '../dao/goalCapsuleDao.js';
+import timeCapsuleDao from '../dao/timeCapsuleDao.js';
 
 const userService = {
   async reg(params){
@@ -29,6 +31,12 @@ const userService = {
       // 이제 얘네들 otherId에 내 ID(PK)값을 다 넣어줄거임 여기서
       // 골캡슐이면 골다오에 update로 보내고 타임캡슐이면 타임다오에 update로 보내서 otherId없데이트
       // 이건 그냥 await 안해도 될듯 비동기로 처리하고 얼른 가입한거 응답 보내줘야되니까
+      allCapsules.gCapsules.forEach(capsule => {
+        GoalCapsuleDao.update({id: capsule.id, otherId: insert.id})
+      });
+      allCapsules.tCapsules.forEach(capsule => {
+        timeCapsuleDao.updateTCapsuleById({id: capsule.id, otherId: insert.id})
+      }); 
       return insert;
     } catch (error) {
       logger.error('userService reg insert error', error);

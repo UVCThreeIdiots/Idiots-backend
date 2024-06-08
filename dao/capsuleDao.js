@@ -109,7 +109,7 @@ const capsuleDao = {
           attributes: User.getIncludeAttributes(),
         }],
         where: {
-          otherEmail: params.otherEmail
+          otherEmail: params.email
         },
       });
   
@@ -120,7 +120,7 @@ const capsuleDao = {
           attributes: User.getIncludeAttributes(),
         }],
         where: {
-          otherEmail: params.otherEmail          // status: true,
+          otherEmail: params.email          // status: true,
         },
       });
   

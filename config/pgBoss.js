@@ -37,10 +37,12 @@ boss.work('time-capsule', async (job) => {
   let text = null;
 
   if (!otherId && !otherEmail.length) {
+    console.log("🚀 ~ boss.work ~ !otherId && !otherEmail.length:")
     user = await userDao.selectUser({id : userId});
     userMail = user.email;
     to = userMail;
   } else if (otherId){
+    console.log("🚀 ~ boss.work ~ otherId:", otherId)
     user = await userDao.selectUser({id : otherId});
     subUser = await userDao.selectUser({id: userId })
     userMail = user.email;
@@ -48,6 +50,7 @@ boss.work('time-capsule', async (job) => {
     to = userMail;
     subTo = subUserMail;
   } else {
+    console.log("🚀 ~ boss.work ~ else:")
     subUser = await userDao.selectUser({id: userId })
     subUserMail = subUser.email;
     userMail = otherEmail;
@@ -59,9 +62,11 @@ boss.work('time-capsule', async (job) => {
   console.log("🚀 ~ createCapsule ~ subUserMail:", subUserMail)
   
   if (subTo === null) {
+    console.log("🚀 ~ boss.work ~ subTo === null:")
     subject = 'mail';
     text = `이것은 나에게 보낸 메일입니다.`;
   } else {
+    console.log("🚀 ~ boss.work ~ 2 else:")
     subject = 'mail';
     text = `이것은 ${userId}님이 ${otherEmail}님에게 보낸 메일입니다.`;
   }
@@ -69,6 +74,7 @@ boss.work('time-capsule', async (job) => {
   try {
     await sendEmail(to, subject, text);
     if (subTo !== null) {
+      console.log("🚀 ~ boss.work ~ if (subTo !== null) {:")
       await sendEmail(subTo, subject, text);
     }
     await TCapsuleService.updateTCapsuleById({id: capsuleId, status: true})

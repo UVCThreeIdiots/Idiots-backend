@@ -29,7 +29,7 @@ const TCapsuleService = {
           otherId: newParams.otherId,
           otherEmail: newParams.otherEmail,
         },
-        { startAfter: 5 });
+        { startAfter: 10 });
         
         if (!jobId || jobId.length === 0) {
           console.error('Failed to schedule job: Job ID is empty');

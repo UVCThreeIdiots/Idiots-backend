@@ -28,32 +28,49 @@ boss.work('time-capsule', async (job) => {
   } = job.data;
 
   let user = null;
-  let userMail = null;
+  let subUser = null;
+  let userMail = null; // timeCapsule 받아야하는 사람
+  let subUserMail = null; // timeCapsule을 보낸 사람
+  let to = null;
+  let subTo = null;
+  let subject = null;
+  let text = null;
 
   if (!otherId && !otherEmail.length) {
     user = await userDao.selectUser({id : userId});
     userMail = user.email;
+    to = userMail;
   } else if (otherId){
     user = await userDao.selectUser({id : otherId});
+    subUser = await userDao.selectUser({id: userId })
     userMail = user.email;
+    subUserMail = subUser.email;
+    to = userMail;
+    subTo = subUserMail;
   } else {
+    subUser = await userDao.selectUser({id: userId })
+    subUserMail = subUser.email;
     userMail = otherEmail;
+    to = userMail;
+    subTo = subUserMail;
   }
   
   console.log("🚀 ~ createCapsule ~ userMail:", userMail)
+  console.log("🚀 ~ createCapsule ~ subUserMail:", subUserMail)
+  
+  if (subTo === null) {
+    subject = 'mail';
+    text = `이것은 나에게 보낸 메일입니다.`;
+  } else {
+    subject = 'mail';
+    text = `이것은 ${userId}님이 ${otherEmail}님에게 보낸 메일입니다.`;
+  }
 
-  const to = userMail;
-  const subject = '1 mail';
-  const text = `
-    User ID: ${userId}
-    Title: ${title}
-    Body: ${body}
-    Expired: ${expired}
-    Status: ${status}
-    Capsule ID: ${capsuleId}
-  `;
   try {
     await sendEmail(to, subject, text);
+    if (subTo !== null) {
+      await sendEmail(subTo, subject, text);
+    }
     await TCapsuleService.updateTCapsuleById({id: capsuleId, status: true})
     console.log('Email sent successfully - 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀');
   } catch (error) {

@@ -1,6 +1,7 @@
 import userDao from '../dao/userDao.js';
 import hashUtil from '../lib/hashUtil.js';
 import logger from '../lib/logger.js';
+import capsuleDao from '../dao/capsuleDao.js';
 
 const userService = {
   async reg(params){
@@ -23,6 +24,11 @@ const userService = {
     };
     try {
       const insert = await userDao.insert(newParams);
+      const allCapsules = await capsuleDao.selectAllByEmailWhenRegister({email: insert.email});
+      // allCapsules는 otherEmail에 내 이메일이 있는것을 다 불러옴
+      // 이제 얘네들 otherId에 내 ID(PK)값을 다 넣어줄거임 여기서
+      // 골캡슐이면 골다오에 update로 보내고 타임캡슐이면 타임다오에 update로 보내서 otherId없데이트
+      // 이건 그냥 await 안해도 될듯 비동기로 처리하고 얼른 가입한거 응답 보내줘야되니까
       return insert;
     } catch (error) {
       logger.error('userService reg insert error', error);

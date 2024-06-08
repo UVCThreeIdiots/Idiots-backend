@@ -58,6 +58,7 @@ const capsuleDao = {
     });
   },
 
+  // 내가 타인에게 보낸 캡슐 전체 조회
   selectAllByOtherId(params) {
     logger.info('capsuleDao selectAllByOtherId');
     return new Promise((resolve, reject) => {
@@ -93,6 +94,43 @@ const capsuleDao = {
         })
         .catch((err) => {
           logger.error('capsuleDao selectAllByOtherId error', err);
+          reject(err);
+        });
+    });
+  },
+  // 가입시 타인이 나에게 보낸 캡슐 전체 조회
+  selectAllByEmailWhenRegister(params) {
+    logger.info('capsuleDao selectAllByEmailWhenRegister');
+    return new Promise((resolve, reject) => {
+      const gCapsulePromise = GCapsule.findAll({
+        include: [{
+          model: User,
+          as: 'user',
+          attributes: User.getIncludeAttributes(),
+        }],
+        where: {
+          otherEmail: params.otherEmail
+        },
+      });
+  
+      const tCapsulePromise = TCapsule.findAll({
+        include: [{
+          model: User,
+          as: 'user',
+          attributes: User.getIncludeAttributes(),
+        }],
+        where: {
+          otherEmail: params.otherEmail          // status: true,
+        },
+      });
+  
+      Promise.all([gCapsulePromise, tCapsulePromise])
+        .then(([gCapsules, tCapsules]) => {
+          logger.info('capsuleDao selectAllByEmailWhenRegister result');
+          resolve({ gCapsules, tCapsules });
+        })
+        .catch((err) => {
+          logger.error('capsuleDao selectAllByEmailWhenRegister error', err);
           reject(err);
         });
     });

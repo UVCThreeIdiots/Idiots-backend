@@ -166,6 +166,35 @@ const userService = {
     return new Promise((resolve) => {
       resolve(user);
     });
+  },
+
+
+
+  async infoPasswordCheck(params) {
+    let user = null;
+    try {
+      user = await userDao.selectUser(params);
+    } catch (err) {
+      return new Promise((resolve, reject) => {
+        reject(err);
+      });
+    }
+
+    // 2. 비밀번호 비교
+    try {
+      const checkPassword = await hashUtil.checkPasswordHash(params.password, user.password);
+
+      // 비밀번호 틀린 경우 튕겨냄
+      if (!checkPassword) {
+        return false;
+      } else {
+        return true
+      }
+    } catch (err) {
+      return new Promise((resolve, reject) => {
+        reject(err);
+      });
+    }
   }
 
   

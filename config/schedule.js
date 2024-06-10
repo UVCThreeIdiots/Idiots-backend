@@ -11,10 +11,10 @@ async function checkGoalAndUpdateDB() {
   console.log("🚀 ~ in checkGoalAndUpdateDB");
   let capsules = null;
   try {
-    capsules = await GoalCapsuleDao.selectAll();
-    logger.info("selectAll schedule ");
+    capsules = await GoalCapsuleDao.selectAllWithoutFailedSuccess();
+    logger.info("selectAllWithoutFailedSuccess schedule ");
   } catch (error) {
-    logger.error("schedule selectAll error : ",error.message);
+    logger.error("schedule selectAllWithoutFailedSuccess error : ",error.message);
   }
   
   for (const capsule of capsules) {
@@ -23,26 +23,37 @@ async function checkGoalAndUpdateDB() {
       dailyCheck: false,
     };
     
-    const left_day = time.diffDay(capsule.expired,capsule.createdAt); //남은일수
+    const left_day = time.diffDay(capsule.expired, time.getNow()); //남은일수
+    console.log("🚀 ~ left_day:", left_day)
     const left_count = capsule.goalCount - capsule.nowCount; //남은횟수
+    console.log("🚀 ~ left_count:", left_count)
     
     if (left_day < left_count) {
+      console.log("🚀 ~ if (left_day < left_count):")
+      
       params.isFailed = true;
       
       try {
-        let userEmail = null;
-        if (capsule.email) {
-          userEmail = capsule.email; // 타인
-        } else {
-          user = await userDao.selectUser({id: capsule.userId}) //자신
-          userEmail = user.email;
+        const user = await userDao.selectUser({id: capsule.userId})
+        const userEmail = user.email;
+        let subUser = null;
+        let subTo = null;
+        if (capsule.otherEmail) { //타인
+          console.log("🚀 ~ checkGoalAndUpdateDB ~ if (capsule.otherEmail) { //타인:") 
+          subUser = await userDao.selectUser({id : capsule.otherId})
+          subTo = subUser.email;
+
         }
         const to = userEmail;
         const subject = "this is failed mail";
         const text = `
-          User ID: ${user.userId}
+          User ID: ${userEmail}
           capsule Info: ${capsule}
         `;
+        if (subTo){
+          await sendEmail(subTo, subject, text);
+          console.log("Email sent successfully - 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀");
+        }
         await sendEmail(to, subject, text);
         console.log('Email sent successfully - 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀');
       } catch (error) {

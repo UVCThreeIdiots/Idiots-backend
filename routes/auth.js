@@ -15,6 +15,20 @@ router.post('/login', (req, res) => {
   });
 })
 
+//회원정보 수정 접근 pw체크 api
+router.post('/info/:id', (req, res) => {
+  const params = {
+    id: req.params.id,
+    password: req.body.password,
+  }
+  userService.infoPasswordCheck(params).then((result) => {
+    res.status(200).json(result);
+  }).catch((err) => {
+    res.status(400).json({ message: err.message });
+  });
+})
+
+
 
 
 export default router;

@@ -148,6 +148,28 @@ const GoalCapsuleDao = {
       });
     });
   },
+  selectAllWithoutFailedSuccess() {
+    logger.info('goalCapsuleDao selectAllWithoutFailedSuccess');
+    return new Promise((resolve, reject) => {
+      GCapsule.findAll({
+        where: {
+          isFailed : false,
+          isSuccess : false,
+        },
+        include: [{
+          model: User,
+          as: 'user',
+          attributes: User.getIncludeAttributes(),
+        }],
+      }).then((selectedAll) => {
+        logger.info('goalCapsuleDao selectAllWithoutFailedSuccess result');
+        resolve(selectedAll);
+      }).catch((err) => {
+        logger.error('goalCapsuleDao selectAllWithoutFailedSuccess error', err);
+        reject(err);
+      });
+    });
+  },
 
 
   // 캡슐 수정

@@ -65,7 +65,7 @@ router.post('/code', async (req, res) => {
     
     const result = await userService.verificationCode(params);
 
-    res.status(200).json(result);
+    res.status(200).json(result.toString());
   } catch (error) {
     res.status(400).json({ message: error.message });
   }

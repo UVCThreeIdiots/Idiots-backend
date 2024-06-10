@@ -252,7 +252,7 @@ const userService = {
       await sendVerificationEmail(to, subject, html);
       setVerifyToken(to, 60, token) // 1분 동안 유효
       return new Promise((resolve, reject) => {
-        resolve('send email completed successfully');
+        resolve('true');
       });
     } catch (error) {
       return new Promise((resolve, reject) => {

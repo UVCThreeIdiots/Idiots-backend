@@ -230,7 +230,7 @@ const userService = {
     try {
       const isExist = await userDao.selectUserByEmail(params);
       if (isExist) {
-        return(true);
+        return('false');
       }
     } catch (error) {
       logger.error('userService verificationEmail error', error);

@@ -2,7 +2,7 @@ import schedule from "node-schedule";
 import GoalCapsuleDao from "../dao/goalCapsuleDao.js";
 import time from "../lib/timeUtil.js"
 import logger from "../lib/logger.js";
-import sendEmail from './email.js';
+import { sendEmail } from './email.js';
 import userDao from "../dao/userDao.js";
 
 

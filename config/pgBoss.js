@@ -1,6 +1,6 @@
 import PgBoss from 'pg-boss';
 import dotenv from 'dotenv';
-import sendEmail from './email.js';
+import { sendEmail } from './email.js';
 import TCapsuleService from '../services/timeCapsuleService.js'
 import userDao from '../dao/userDao.js';
 dotenv.config();

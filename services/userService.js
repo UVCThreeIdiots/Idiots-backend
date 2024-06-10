@@ -4,6 +4,10 @@ import logger from '../lib/logger.js';
 import capsuleDao from '../dao/capsuleDao.js';
 import GoalCapsuleDao from '../dao/goalCapsuleDao.js';
 import timeCapsuleDao from '../dao/timeCapsuleDao.js';
+import crypto from 'crypto';
+import { sendVerificationEmail } from '../config/email.js';
+import { setVerifyToken, checkVerifyToken} from '../lib/token.js';
+
 
 const userService = {
   async reg(params){
@@ -219,6 +223,54 @@ const userService = {
       });
     }
 
+  },
+
+  async verificationEmail(params) {
+    logger.info('userService verificationEmail', params);
+    try {
+      const isExist = await userDao.selectUserByEmail(params);
+      if (isExist) {
+        return(true);
+      }
+    } catch (error) {
+      logger.error('userService verificationEmail error', error);
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+    const token = crypto.randomBytes(3).toString('hex').toUpperCase(); // 랜덤값 생성
+    console.log("🚀 ~ verificationEmail ~ token:", token)
+    const to = params.email;
+    const subject = 'Idiots Verification Email';
+    const html = `
+      <h1>Verification Email</h1>
+      <p>Please enter the verify number : ${token}</p>
+      
+    `;
+    try {
+
+      await sendVerificationEmail(to, subject, html);
+      setVerifyToken(to, 60, token) // 1분 동안 유효
+      return new Promise((resolve, reject) => {
+        resolve('send email completed successfully');
+      });
+    } catch (error) {
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  },
+  
+  async verificationCode(params) {
+    console.log("🚀 ~ verificationCode ~ params.email:", params.email)
+    console.log("🚀 ~ verificationCode ~ params.code:", params.code)
+    
+    const userEmail = params.email;
+    const token = params.code;
+    const isValid = checkVerifyToken(userEmail, token)
+    return new Promise((resolve, reject) => {
+      resolve(isValid);
+    });
   },
 
   

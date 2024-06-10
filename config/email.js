@@ -33,4 +33,24 @@ async function sendEmail(to, subject, text) {
   }
 }
 
-export default sendEmail
+
+
+// 이메인 인증 메일전송
+async function sendVerificationEmail(to, subject, html) {
+  const mailOptions = {
+    from: `"ssb" <${process.env.NAVER_ID}>`, // 발신자 주소
+    to, // 수신자 주소
+    subject, // 이메일 제목
+    html, // 이메일 본문 (html)
+    // html: '<b>Hello world?</b>' // 이메일 본문 (HTML)
+  };
+
+  try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent: ' + info.response);
+  } catch (error) {
+    console.error('Error sending email: ' + error);
+  }
+}
+
+export { sendEmail, sendVerificationEmail }

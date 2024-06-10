@@ -42,6 +42,35 @@ router.post('/duplicate', async (req, res) => {
   }
 });
 
+router.post('/email', async (req, res) => {
+  try {
+    const params = {
+      email: req.body.email,
+    }
+    
+    const result = await userService.verificationEmail(params);
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+router.post('/code', async (req, res) => {
+  try {
+    const params = {
+      email: req.body.email,
+      code: req.body.code,
+    }
+    
+    const result = await userService.verificationCode(params);
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 
 
 

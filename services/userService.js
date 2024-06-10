@@ -195,7 +195,31 @@ const userService = {
         reject(err);
       });
     }
-  }
+  },
+
+
+
+  async checkDuplicate(params) {
+    let user = null;
+    try {
+      user = await userDao.loginUser(params);
+      if (!user) {
+        return new Promise((resolve, reject) => {
+          resolve('true');
+        })
+        
+      } else {
+        return new Promise((resolve, reject) => {
+          resolve('false');
+        })
+      }
+    } catch (error) {
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+
+  },
 
   
 

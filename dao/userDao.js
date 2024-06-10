@@ -69,7 +69,7 @@ const userDao = {
         attributes: ['id', 'userId', 'password', 'name', 'age', 'email','updatedAt', 'createdAt', 'deletedAt', 'admin'],
         where: { userId: params.userId },
       }).then((selectedOne) => {
-        logger.info('userDao loginUser result', selectedOne.dataValues);
+        logger.info('userDao loginUser result');
         resolve(selectedOne);
       }).catch((err) => {
         logger.error('userDao loginUser error', err);

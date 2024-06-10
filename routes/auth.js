@@ -28,6 +28,21 @@ router.post('/info/:id', (req, res) => {
   });
 })
 
+router.post('/duplicate', async (req, res) => {
+  try {
+    const params = {
+      userId: req.body.userId,
+    }
+    
+    const result = await userService.checkDuplicate(params);
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
 
 
 

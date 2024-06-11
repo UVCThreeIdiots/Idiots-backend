@@ -8,11 +8,33 @@ import userDao from '../dao/userDao.js';
 const TCapsuleService = {
   async createCapsule(params) {
     logger.info('TCapsuleService createCapsule');
+
+    
     try {
+      const audioFiles = '';
+      const imageFiles = [];
+      const videoFiles = '';
+      
+      // 파일을 분류하여 각 배열에 저장
+      params.files.forEach(file => {
+        if (file.mimetype.startsWith('image/')) {
+          imageFiles = file.path;
+        } else if (file.mimetype.startsWith('audio/')) {
+          audioFiles.push(file.path);
+        } else if (file.mimetype.startsWith('video/')) {
+          videoFiles = file.path
+        }
+      });
+      
       const newExpired = time.changeFormat(params.expired);
+      const { files, expired, ...restParams } = params;
       const newParams = {
-        ...params,
+        ...restParams,
         expired: newExpired,
+        audioPath: audioFiles,
+        imagePath: imageFiles,
+        videoPath: videoFiles,
+
       };
       const scheduleTime = moment.tz(newParams.expired, 'Asia/Seoul').toDate();
       
@@ -28,9 +50,8 @@ const TCapsuleService = {
           capsuleId: newCapsule.id,
           otherId: newParams.otherId,
           otherEmail: newParams.otherEmail,
-          files: newParams.files,
         },
-        { startAfter: 10 });
+        { startAfter: scheduleTime });
         
         if (!jobId || jobId.length === 0) {
           console.error('Failed to schedule job: Job ID is empty');

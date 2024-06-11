@@ -6,8 +6,8 @@ import upload from '../lib/multer.js';
 
 const router = express.Router();
 
-router.post('/', upload.array('files', 10), async(req, res) => {
-  console.log(req.files[0].path);
+router.post('/', upload.array('files', 12), async(req, res) => {
+  console.log(req);
   try{
     const params = {
       userId: req.body.userId,
@@ -17,9 +17,8 @@ router.post('/', upload.array('files', 10), async(req, res) => {
       status: req.body.status || false,
       otherId: req.body.otherId || 0,
       otherEmail: req.body.otherEmail || '',
-      files: req.files[0].path,
+      files: req.files,
     }
-    
     const result = await TCapsuleService.createCapsule(params);
     logger.info('TCapsule.routes run success');
     res.status(200).json(result);

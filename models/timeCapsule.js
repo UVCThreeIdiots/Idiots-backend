@@ -26,10 +26,18 @@ class TCapsule extends Sequelize.Model {
       otherEmail: {
         type : Sequelize.STRING(255),
       },
-      files: {
+      audioPath: {
         type: Sequelize.STRING(255),
         allowNull: true,
-      }
+      },
+      imagePath: {
+        type: Sequelize.ARRAY(Sequelize.STRING(255)),
+        allowNull: true,
+      },
+      videoPath: {
+        type: Sequelize.STRING(255),
+        allowNull: true,
+      },
     }, {
       sequelize,
       timestamps: true,
@@ -51,7 +59,9 @@ class TCapsule extends Sequelize.Model {
       'status',
       'otherId',
       'otherEmail',
-      'files',
+      'audioPath',
+      'imagePath',
+      'videoPath',
       'createdAt',
       'updatedAt',
       'deletedAt',

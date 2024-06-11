@@ -28,6 +28,7 @@ const TCapsuleService = {
           capsuleId: newCapsule.id,
           otherId: newParams.otherId,
           otherEmail: newParams.otherEmail,
+          files: newParams.files,
         },
         { startAfter: 10 });
         

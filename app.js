@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import boss from './config/pgBoss.js';
 import './config/schedule.js';
+import path from 'path';
 
 import db from './models/index.js';
 
@@ -13,6 +14,7 @@ import indexRouter from './routes/index.js';
 dotenv.config();  // node.js에서는 process.env로 환경변수에 접근하는데 dotenv.config()를 해줘야 우리가 .env에 명시해둔 환경변수들이 process.env 객체에 들어감
 
 const app = express();
+const __dirname = process.cwd();
 
 
 app.set('port', process.env.PORT || 3000); // port 설정 : .env에 있는 PORT가 없으면 3000번 포트로 연결
@@ -39,6 +41,7 @@ db.sequelize.authenticate().then(() => {
 
 
 app.use('/', indexRouter);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 app.listen(app.get('port'), () => {

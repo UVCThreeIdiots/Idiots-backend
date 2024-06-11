@@ -18,9 +18,9 @@ const TCapsuleService = {
       // 파일을 분류하여 각 배열에 저장
       params.files.forEach(file => {
         if (file.mimetype.startsWith('image/')) {
-          imageFiles = file.path;
+          imageFiles.push(file.path);
         } else if (file.mimetype.startsWith('audio/')) {
-          audioFiles.push(file.path);
+          audioFiles = file.path;
         } else if (file.mimetype.startsWith('video/')) {
           videoFiles = file.path
         }

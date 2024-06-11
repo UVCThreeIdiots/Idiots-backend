@@ -32,6 +32,11 @@ class User extends Sequelize.Model {
       admin: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,
+      },
+      mode: {
+        type: Sequelize.ENUM('normal', 'game'),
+        allowNull: false,
+        defaultValue: 'normal',
       }
     }, {
       sequelize,
@@ -47,7 +52,7 @@ class User extends Sequelize.Model {
   }
 
   static getIncludeAttributes() {
-    return ['id', 'userId', 'password', 'name', 'age', 'email', 'updatedAt', 'createdAt', 'deletedAt'];
+    return ['id', 'userId', 'password', 'name', 'age', 'email','admin','mode' ,'updatedAt', 'createdAt', 'deletedAt'];
   }
 }
 

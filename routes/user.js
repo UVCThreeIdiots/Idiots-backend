@@ -17,6 +17,7 @@ router.post('/', async (req, res) => {
       userId: req.body.userId,
       password:  req.body.password,
       email: req.body.email,
+      mode: req.body.mode || 'normal',
     }
     
     const result = await userService.reg(params);
@@ -64,6 +65,7 @@ router.put('/:id', async (req, res) => {
       userId: req.body.userId,
       password:  req.body.password,
       email: req.body.email,
+      mode: req.body.mode,
     }
 
     const result = await userService.updateUser(params);

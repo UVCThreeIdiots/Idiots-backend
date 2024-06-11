@@ -2,10 +2,12 @@ import express from 'express';
 
 import TCapsuleService from '../services/timeCapsuleService.js';
 import logger from '../lib/logger.js';
+import upload from '../lib/multer.js';
 
 const router = express.Router();
 
-router.post('/', async(req, res) => {
+router.post('/', upload.array('files', 10), async(req, res) => {
+  console.log(req.files[0].path);
   try{
     const params = {
       userId: req.body.userId,
@@ -15,6 +17,7 @@ router.post('/', async(req, res) => {
       status: req.body.status || false,
       otherId: req.body.otherId || 0,
       otherEmail: req.body.otherEmail || '',
+      files: req.files[0].path,
     }
     
     const result = await TCapsuleService.createCapsule(params);
@@ -44,7 +47,6 @@ router.get('/TCapsule/:id', async(req, res) => {
     const params = {
       id: req.params.id,
     }
-    console.log('route:', params);
     const timeCapsuleById = await TCapsuleService.getTCapsuleById(params);
     logger.info('TCapsuleById.router is run successfully')
     res.status(200).json(timeCapsuleById);

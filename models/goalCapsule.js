@@ -44,9 +44,11 @@ class GCapsule extends Sequelize.Model {
       },
       otherId: {
         type: Sequelize.INTEGER,
+        allowNull: true,
       },
       otherEmail: {
         type : Sequelize.STRING(255),
+        allowNull: true,
       }
       
     }, {

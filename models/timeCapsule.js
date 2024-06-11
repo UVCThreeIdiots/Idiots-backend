@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+import { DataTypes, Sequelize } from "sequelize";
 
 class TCapsule extends Sequelize.Model {
   static init(sequelize){
@@ -25,6 +25,10 @@ class TCapsule extends Sequelize.Model {
       },
       otherEmail: {
         type : Sequelize.STRING(255),
+      },
+      files: {
+        type: Sequelize.STRING(255),
+        allowNull: true,
       }
     }, {
       sequelize,
@@ -47,6 +51,7 @@ class TCapsule extends Sequelize.Model {
       'status',
       'otherId',
       'otherEmail',
+      'files',
       'createdAt',
       'updatedAt',
       'deletedAt',

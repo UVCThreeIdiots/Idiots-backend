@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
   console.log(req)
   try {
     const params = {
-      admin: req.body.admin || false,
+      role: req.body.role || 'user',
       name: req.body.name,
       age: req.body.age,
       userId: req.body.userId,
@@ -66,6 +66,7 @@ router.put('/:id', async (req, res) => {
       password:  req.body.password,
       email: req.body.email,
       mode: req.body.mode,
+      role: req.body.role,
     }
 
     const result = await userService.updateUser(params);

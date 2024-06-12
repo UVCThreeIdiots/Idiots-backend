@@ -29,9 +29,10 @@ class User extends Sequelize.Model {
           isEmail: true,
         }
       },
-      admin: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
+      role: {
+        type: Sequelize.ENUM('user', 'admin'),
+        allowNull: false,
+        defaultValue: 'user',
       },
       mode: {
         type: Sequelize.ENUM('normal', 'game'),
@@ -52,7 +53,7 @@ class User extends Sequelize.Model {
   }
 
   static getIncludeAttributes() {
-    return ['id', 'userId', 'password', 'name', 'age', 'email','admin','mode' ,'updatedAt', 'createdAt', 'deletedAt'];
+    return ['id', 'userId', 'password', 'name', 'age', 'email','role','mode' ,'updatedAt', 'createdAt', 'deletedAt'];
   }
 }
 

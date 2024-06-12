@@ -1,10 +1,11 @@
 import express from 'express';
 import userRouter from './user.js';
 import authRouter from './auth.js';
-import timeCapsuleRouter from './timeCapsule.js'
-import goalCapsuleRouter from './goalCapsule.js'
-import capsuleRouter from './capsule.js'
-import otherRouter from './other.js'
+import timeCapsuleRouter from './timeCapsule.js';
+import goalCapsuleRouter from './goalCapsule.js';
+import capsuleRouter from './capsule.js';
+import otherRouter from './other.js';
+import adminRouter from './admin.js';
 
 const router = express.Router();
 
@@ -19,6 +20,7 @@ router.use('/time', timeCapsuleRouter);
 router.use('/goal', goalCapsuleRouter);
 router.use('/capsule', capsuleRouter);
 router.use('/other', otherRouter);
+router.use('/admin', adminRouter);
 
 
 export default router;

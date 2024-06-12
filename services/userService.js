@@ -53,7 +53,7 @@ const userService = {
     let allUser = null;
     try {
       allUser = await userDao.selectAll();
-      logger.info('userService list allUsers', allUser);
+      logger.info('userService list allUsers');
       
       if(!allUser) {
         const err = new Error('No user');

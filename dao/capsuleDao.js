@@ -136,6 +136,38 @@ const capsuleDao = {
     });
   },
 
+  // 관리자 권한 모든캡슐 조회
+  selectAll(params) {
+    logger.info('capsuleDao selectAll');
+    return new Promise((resolve, reject) => {
+      const gCapsulePromise = GCapsule.findAll({
+        include: [{
+          model: User,
+          as: 'user',
+          attributes: User.getIncludeAttributes(),
+        }],
+      });
+  
+      const tCapsulePromise = TCapsule.findAll({
+        include: [{
+          model: User,
+          as: 'user',
+          attributes: User.getIncludeAttributes(),
+        }],
+      });
+  
+      Promise.all([gCapsulePromise, tCapsulePromise])
+        .then(([gCapsules, tCapsules]) => {
+          logger.info('capsuleDao selectAll result');
+          resolve({ gCapsules, tCapsules });
+        })
+        .catch((err) => {
+          logger.error('capsuleDao selectAll error', err);
+          reject(err);
+        });
+    });
+  },
+
 }
 
 export default capsuleDao;

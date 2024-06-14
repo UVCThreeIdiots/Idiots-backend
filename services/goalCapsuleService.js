@@ -6,6 +6,13 @@ const goalCapsuleService = {
   async createCapsule(params) {
     logger.info('goalCapsuleService createCapsule', params);
     try {
+      const imageFiles = [];
+
+    if(params.files) {
+      params.files.forEach(file => {
+          imageFiles.push(file.path);
+      });
+    }
       const newGoalTerm = params.goalTerm * 7;
       console.log("🚀 ~ createCapsule ~ params.goalTerm:", params.goalTerm)
       console.log("🚀 ~ createCapsule ~ newGoalTerm:", newGoalTerm)
@@ -18,7 +25,8 @@ const goalCapsuleService = {
       const newParams = {
         ...params,
         expired: newExpired,
-        goalTerm: newGoalTerm
+        goalTerm: newGoalTerm,
+        imagePath: imageFiles,
       }
       const newCapsule = await GoalCapsuleDao.insert(newParams);
       return newCapsule;

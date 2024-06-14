@@ -3,11 +3,12 @@ import goalCapsuleService from '../services/goalCapsuleService.js';
 import logger from '../lib/logger.js';
 import time from '../lib/timeUtil.js';
 import { isAuthenticated, isAuthorization } from '../lib/middleware.js';
+import upload from '../lib/multer.js';
 
 const router = express.Router();
 
 
-router.post('/', isAuthenticated, async (req, res) => {
+router.post('/', isAuthenticated, upload.array('files', 12), async (req, res) => {
   logger.info('[POST] /goal/ ', req.body);
   try {
     const params = {
@@ -23,6 +24,7 @@ router.post('/', isAuthenticated, async (req, res) => {
       isSuccess: req.body.isSuccess || false,
       otherId: req.body.otherId || 0,
       otherEmail: req.body.otherEmail || '',
+      files: req.files,
     }
     
     const result = await goalCapsuleService.createCapsule(params);

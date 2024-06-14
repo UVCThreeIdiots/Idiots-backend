@@ -49,8 +49,11 @@ class GCapsule extends Sequelize.Model {
       otherEmail: {
         type : Sequelize.STRING(255),
         allowNull: true,
-      }
-      
+      },
+      imagePath: {
+        type: Sequelize.ARRAY(Sequelize.STRING(255)),
+        allowNull: true,
+      },
     }, {
       sequelize,
       timestamps: true,
@@ -76,6 +79,7 @@ class GCapsule extends Sequelize.Model {
       'nowCount',
       'dailyCheck',
       'isFailed',
+      'imagePath',
       'otherId',
       'otherEmail',
       'isSuccess',

@@ -121,6 +121,9 @@ const userService = {
   async deleteUser(params) {
     logger.info('userService deleteUser', params);
     try {
+      if(params.targetId) {
+        params.id = params.targetId;
+      }
       const deletedUser = await userDao.delete(params);
       return deletedUser;
     } catch (error) {

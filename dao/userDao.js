@@ -91,6 +91,7 @@ const userDao = {
             attributes: GCapsule.getIncludeAttributesId()
           }
         ],
+        paranoid: false,
       }).then((selectedAll) => {
         logger.info('userDao selectAll result');
         resolve(selectedAll);

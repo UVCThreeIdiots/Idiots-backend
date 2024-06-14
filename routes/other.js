@@ -1,16 +1,17 @@
 import express from 'express';
 import otherService from '../services/otherService.js';
 import logger from '../lib/logger.js';
+import { isAuthenticated, isAuthorization } from '../lib/middleware.js';
 
 const router = express.Router();
 
 
-router.get('/capsules/:id', async (req, res) => {
+router.get('/capsules/', isAuthenticated, async (req, res) => {
   logger.info("[GET] /other/capsules/ ", req.params);
 
   try {
     const params = {
-      userId: req.params.id,
+      userId: req.user.id,
     }
     const result = await otherService.getOtherCapsules(params);
     
@@ -22,7 +23,7 @@ router.get('/capsules/:id', async (req, res) => {
 
 });
 
-router.post('/email', async (req, res) => {
+router.post('/email', isAuthenticated, async (req, res) => {
   logger.info("[POST] /other/email/ ", req.url);
 
   try {

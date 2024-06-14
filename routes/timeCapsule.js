@@ -1,16 +1,16 @@
 import express from 'express';
-
+import { isAuthenticated, isAuthorization } from '../lib/middleware.js';
 import TCapsuleService from '../services/timeCapsuleService.js';
 import logger from '../lib/logger.js';
 import upload from '../lib/multer.js';
 
 const router = express.Router();
 
-router.post('/', upload.array('files', 12), async(req, res) => {
+router.post('/', isAuthenticated, upload.array('files', 12), async(req, res) => {
   console.log(req);
   try{
     const params = {
-      userId: req.body.userId,
+      userId: req.user.id,
       title: req.body.title || "empty",
       body: req.body.body,
       expired: req.body.expired,
@@ -29,19 +29,19 @@ router.post('/', upload.array('files', 12), async(req, res) => {
 });
 
 // 타임캡슐 전체 조회 ( 어드민 권한 )
-router.get('/allTCapsules', async(req, res) => {
+router.get('/allTCapsules', isAuthenticated, isAuthorization, async(req, res) => {
   try {
     const timeCapsules = await TCapsuleService.getAllTCapsules();
     logger.info('TCapsules.routes/getAllTCapsules run successfully');
     res.status(200).json(timeCapsules);
   } catch (error) {
     logger.error(`getAllTCapsules.router's error: ${error.message}`); 
-    res.status(400).json({ message: err.message });
+    res.status(400).json({ message: error.message });
   }
 });
 
-// 특정 id 타임캡슐 조회 ( 어드민 권한 )
-router.get('/TCapsule/:id', async(req, res) => {
+// 특정 id 타임캡슐 조회
+router.get('/TCapsule/:id', isAuthenticated, async(req, res) => {
   try {
     const params = {
       id: req.params.id,
@@ -56,7 +56,7 @@ router.get('/TCapsule/:id', async(req, res) => {
 });
 
 // 타임캡슐 수정 요청 ( 어드민 권한 )
-router.put('/updateTCapsule/:id', async(req, res) => {
+router.put('/updateTCapsule/:id', isAuthenticated, isAuthorization, async(req, res) => {
   try {
     const params = {
       id: req.params.id,
@@ -73,7 +73,7 @@ router.put('/updateTCapsule/:id', async(req, res) => {
   }
 });
 // 타임캡슐 삭제 ( 어드민 권한 )
-router.delete('/deleteTCapsule/:id', async(req, res) => {
+router.delete('/deleteTCapsule/:id', isAuthenticated, isAuthorization, async(req, res) => {
   try{
     const params = {
       id: req.params.id,

@@ -1,15 +1,16 @@
 import express from 'express';
 import capsuleService from '../services/capsuleService.js';
 import logger from '../lib/logger.js';
+import { isAuthenticated, isAuthorization } from '../lib/middleware.js';
 
 const router = express.Router();
 
-router.get('/:id', async (req, res) => {
+router.get('/',isAuthenticated, async (req, res) => {
   logger.info("[GET] /capsule/ ", req.url);
 
   try {
     const params = {
-      userId: req.params.id
+      userId: req.user.id
     }
     const result = await capsuleService.getAllByIdCapsule(params);
     

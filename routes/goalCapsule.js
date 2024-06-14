@@ -2,15 +2,16 @@ import express from 'express';
 import goalCapsuleService from '../services/goalCapsuleService.js';
 import logger from '../lib/logger.js';
 import time from '../lib/timeUtil.js';
+import { isAuthenticated, isAuthorization } from '../lib/middleware.js';
 
 const router = express.Router();
 
 
-router.post('/', async (req, res) => {
+router.post('/', isAuthenticated, async (req, res) => {
   logger.info('[POST] /goal/ ', req.body);
   try {
     const params = {
-      userId: req.body.userId,  //user pk
+      userId: req.user.id,  //user pk
       title: req.body.title,
       body: req.body.body || null,
       expired:  req.body.expired || time.getNow(),
@@ -32,7 +33,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/all', async (req, res) => {
+router.get('/all', isAuthenticated, isAuthorization, async (req, res) => {
   logger.info("[GET] /goal/all ", req.url);
 
   try {
@@ -46,23 +47,23 @@ router.get('/all', async (req, res) => {
 
 });
 
-router.get('/user/:id', async (req, res) => {
-  logger.info("[GET] /goal/user/:id ", req.url);
+router.get('/user/', isAuthenticated , async (req, res) => {
+  logger.info("[GET] /goal/user/ ", req.url);
 
   try {
     const params = {
-      userId: req.params.id,
+      userId: req.user.id,
     }
 
     const result = await goalCapsuleService.getAllByUserIdCapsule(params);
     
     res.status(200).json(result);
   } catch (error) {
-    logger.error('[GET] /goal/user/:id res error', error);
+    logger.error('[GET] /goal/user/ res error', error);
     res.status(400).json({message: error.message});
   }
 });
-router.get('/:id', async (req, res) => {
+router.get('/:id', isAuthenticated, async (req, res) => {
   logger.info("[GET] /goal/:id ", req.url);
 
   try {
@@ -79,13 +80,13 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', isAuthenticated, async (req, res) => {
   logger.info("[PUT] /goal/:id ");
 
   try {
     const params = {
       id: req.params.id,
-      userId: req.body.userId,  //user pk
+      userId: req.user.id,  //user pk
       title: req.body.title,
       goalCount: req.body.goalCount,
       goalTerm: req.body.goalTerm,
@@ -104,7 +105,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', isAuthenticated, async (req, res) => {
   logger.info("[DELETE] /goal/:id ");
 
   try {

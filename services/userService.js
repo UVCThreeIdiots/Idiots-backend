@@ -6,7 +6,7 @@ import GoalCapsuleDao from '../dao/goalCapsuleDao.js';
 import timeCapsuleDao from '../dao/timeCapsuleDao.js';
 import crypto from 'crypto';
 import { sendVerificationEmail } from '../config/email.js';
-import { setVerifyToken, checkVerifyToken} from '../lib/token.js';
+import { setVerifyToken, checkVerifyToken} from '../config/redis.js';
 
 
 const userService = {

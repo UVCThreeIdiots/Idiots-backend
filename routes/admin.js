@@ -1,14 +1,11 @@
 import express from 'express';
-import { isAuthorization } from '../lib/middleware.js'
+import { isAuthenticated, isAuthorization } from '../lib/middleware.js'
 import userService from '../services/userService.js';
 import capsuleService from '../services/capsuleService.js';
 
 const router = express.Router();
 
-router.get('/user/:id', isAuthorization ,async (req, res) => {
-  // console.log("🚀 ~ router.get ~ router.get('/all' header:", req.headers)
-  // console.log("🚀 ~ router.get ~ router.get('/all' body:", req.body)
-  // console.log("🚀 ~ router.get ~ router.get('/all' body:", req.user)
+router.get('/user/', isAuthenticated, isAuthorization ,async (req, res) => {
 
   try {
     const result = await userService.list();
@@ -19,9 +16,7 @@ router.get('/user/:id', isAuthorization ,async (req, res) => {
   }
 });
 
-router.get('/capsule/:id', isAuthorization , async (req, res) => {
-  // console.log(req.headers);
-  // console.log(req.body);
+router.get('/capsule/', isAuthenticated, isAuthorization , async (req, res) => {
 
   try {
     const result = await capsuleService.getAllForAdmin();

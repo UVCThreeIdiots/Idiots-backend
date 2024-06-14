@@ -16,10 +16,10 @@ const capsuleService = {
     }
   },
 
-  async getAllForAdmin(params) {
-    logger.info('capsuleService getAllForAdmin', params);
+  async getAllForAdmin() {
+    logger.info('capsuleService getAllForAdmin');
     try {
-      const allCapsule = await capsuleDao.selectAll(params);
+      const allCapsule = await capsuleDao.selectAll();
       return allCapsule;
     } catch (error) {
       logger.error('capsuleService getAllForAdmin error', error);

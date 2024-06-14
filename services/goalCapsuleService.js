@@ -34,6 +34,13 @@ const goalCapsuleService = {
     logger.info('goalCapsuleService getOneCapsule', params);
     try {
       const oneCapsule = await GoalCapsuleDao.selectOne(params);
+      console.log("🚀 ~ getOneCapsule ~ oneCapsule.userId:", oneCapsule.userId)
+      console.log("🚀 ~ getOneCapsule ~ req.user.id:", req.user.id)
+      console.log("🚀 ~ getOneCapsule ~ req.user.role:", req.user.role)
+      if((oneCapsule.userId !== req.user.id) && req.user.role !== 'admin') {
+        logger.error('goalCapsuleService getOneCapsule Authorization error', error);
+        throw new Error({message: 'Authorization'});
+      }
       return oneCapsule;
     } catch (error) {
       logger.error('goalCapsuleService getOneCapsule error', error);
@@ -72,6 +79,14 @@ const goalCapsuleService = {
   async updateCapsule(params) {
     logger.info('goalCapsuleService updateCapsule', params);
     try {
+      const oneCapsule = await GoalCapsuleDao.selectOne(params);
+      console.log("🚀 ~ updateCapsule ~ oneCapsule.userId:", oneCapsule.userId)
+      console.log("🚀 ~ updateCapsule ~ req.user.id:", req.user.id)
+      console.log("🚀 ~ updateCapsule ~ req.user.role:", req.user.role)
+      if((oneCapsule.userId !== req.user.id) && req.user.role !== 'admin') {
+        logger.error('goalCapsuleService updateCapsule Authorization error', error);
+        throw new Error({message: 'Authorization'});
+      }
       const updatedCapsule = await GoalCapsuleDao.update(params);
       if (updatedCapsule.nowCount === updatedCapsule.goalCount) {
         const newUpdatedCapsule = await GoalCapsuleDao.update({id : params.id, isSuccess: true});
@@ -90,6 +105,14 @@ const goalCapsuleService = {
   async deleteCapsule(params) {
     logger.info('goalCapsuleService deleteCapsule', params);
     try {
+      const oneCapsule = await GoalCapsuleDao.selectOne(params);
+      console.log("🚀 ~ deleteCapsule ~ oneCapsule.userId:", oneCapsule.userId)
+      console.log("🚀 ~ deleteCapsule ~ req.user.id:", req.user.id)
+      console.log("🚀 ~ deleteCapsule ~ req.user.role:", req.user.role)
+      if((oneCapsule.userId !== req.user.id) && req.user.role !== 'admin') {
+        logger.error('goalCapsuleService deleteCapsule Authorization error', error);
+        throw new Error({message: 'Authorization'});
+      }
       const deletedCapsule = await GoalCapsuleDao.delete(params);
       return deletedCapsule;
     } catch (error) {

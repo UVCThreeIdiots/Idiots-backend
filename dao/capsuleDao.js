@@ -137,7 +137,7 @@ const capsuleDao = {
   },
 
   // 관리자 권한 모든캡슐 조회
-  selectAll(params) {
+  selectAll() {
     logger.info('capsuleDao selectAll');
     return new Promise((resolve, reject) => {
       const gCapsulePromise = GCapsule.findAll({

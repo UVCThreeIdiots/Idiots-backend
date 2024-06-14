@@ -78,10 +78,9 @@ app.use(session({
   cookie: {
     path: '/', // 쿠키가 도메인의 모든 경로에서 유효하도록 설정합니다.
     secure: false, // 배포 환경에서는 secure 속성을 true로 설정하여 HTTPS를 통해서만 쿠키를 전송하도록 합니다.
-    httpOnly: true, // JavaScript를 통해 쿠키에 접근하지 못하도록 설정하여 보안을 강화합니다.
+    httpOnly: false, // JavaScript를 통해 쿠키에 접근하지 못하도록 설정하여 보안을 강화합니다.
     sameSite: 'strict', // CSRF 방지를 위해 SameSite 속성을 'strict'로 설정합니다.
-    // maxAge: 24 * 60 * 60 * 1000 // 쿠키의 유효 기간을 24시간(1일)으로 설정합니다.
-    maxAge: 10 * 60 * 1000 // 쿠키의 유효 기간을 24시간(1일)으로 설정합니다.
+    maxAge: 1 * 60 * 60 * 1000 // 쿠키의 유효 기간을 24시간(1일)으로 설정합니다.
   },
   unset: 'destroy' // 세션 무효화 시 쿠키를 삭제하도록 설정합니다.
 })); 

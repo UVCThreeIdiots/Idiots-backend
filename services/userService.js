@@ -187,10 +187,13 @@ const userService = {
     // 2. 비밀번호 비교
     try {
       const checkPassword = await hashUtil.checkPasswordHash(params.password, user.password);
-
+      console.log("🚀 ~ infoPasswordCheck ~ checkPassword:", checkPassword)
+      
       // 비밀번호 틀린 경우 튕겨냄
       if (!checkPassword) {
-        return false;
+        return new Promise((resolve, reject) => {
+          reject(err);
+        });
       } else {
         return true
       }

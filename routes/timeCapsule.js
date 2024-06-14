@@ -45,6 +45,8 @@ router.get('/TCapsule/:id', isAuthenticated, async(req, res) => {
   try {
     const params = {
       id: req.params.id,
+      userId: req.user.id,
+      userRole: req.user.role,
     }
     const timeCapsuleById = await TCapsuleService.getTCapsuleById(params);
     logger.info('TCapsuleById.router is run successfully')
@@ -60,6 +62,8 @@ router.put('/updateTCapsule/:id', isAuthenticated, isAuthorization, async(req, r
   try {
     const params = {
       id: req.params.id,
+      userId: req.user.id,
+      userRole: req.user.role,
       title: req.body.title,
       body: req.body.body,
       status: req.body.status || null,
@@ -77,6 +81,8 @@ router.delete('/deleteTCapsule/:id', isAuthenticated, isAuthorization, async(req
   try{
     const params = {
       id: req.params.id,
+      userId: req.user.id,
+      userRole: req.user.role,
     };
     const deleteTCapsuleById = await TCapsuleService.deleteTCapsuleById(params);
     logger.info('deleteTCapsuleById.router is run successfully');

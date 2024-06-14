@@ -69,6 +69,8 @@ router.get('/:id', isAuthenticated, async (req, res) => {
   try {
     const params = {
       id: req.params.id,
+      userId: req.user.id,  //user pk
+      userRole: req.user.role,
     }
 
     const result = await goalCapsuleService.getOneCapsule(params);
@@ -87,6 +89,7 @@ router.put('/:id', isAuthenticated, async (req, res) => {
     const params = {
       id: req.params.id,
       userId: req.user.id,  //user pk
+      userRole: req.user.role,
       title: req.body.title,
       goalCount: req.body.goalCount,
       goalTerm: req.body.goalTerm,
@@ -111,6 +114,8 @@ router.delete('/:id', isAuthenticated, async (req, res) => {
   try {
     const params = {
       id: req.params.id,
+      userRole: req.user.role,
+      userId: req.user.id,  //user pk
     }
 
     const result = await goalCapsuleService.deleteCapsule(params);

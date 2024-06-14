@@ -93,11 +93,10 @@ const TCapsuleService = {
   async getTCapsuleById(params) {
     try {
       const getTCapsuleById = await timeCapsuleDao.findByIdTCapsule(params);
-      console.log("🚀 ~ getTCapsuleById ~ req.user.id:", req.user.id)
+      console.log("🚀 ~ getTCapsuleById ~ req.user.id:", params.userId);
       console.log("🚀 ~ getTCapsuleById ~ getTCapsuleById.userId:", getTCapsuleById.userId)
-      console.log("🚀 ~ updateTCapsuleById ~ req.user.role:", req.user.role)
-      if((getTCapsuleById.userId !== req.user.id) && req.user.role !== 'admin') {
-        logger.error(`!!timeCapsuleService.getTCapsuleById's Authorization error ${error.toString()}`);
+      console.log("🚀 ~ updateTCapsuleById ~ req.user.role:", params.userRole)
+      if((getTCapsuleById.userId !== params.userId) && (getTCapsuleById.otherId !== params.userId) && params.userRole !== 'admin') {
         throw new Error({message: 'Authorization'});
       }
       logger.info('timeCapsuleService.getTCapsuleById run successfully');
@@ -112,10 +111,9 @@ const TCapsuleService = {
     try {
       const oneCapsule = await timeCapsuleDao.findByIdTCapsule(params);
       console.log("🚀 ~ updateTCapsuleById ~ updateTCapsuleById:", oneCapsule.userId)
-      console.log("🚀 ~ updateTCapsuleById ~ req.user.id:", req.user.id)
-      console.log("🚀 ~ updateTCapsuleById ~ req.user.role:", req.user.role)
-      if((oneCapsule.userId !== req.user.id) && req.user.role !== 'admin') {
-        logger.error(`!!updateTCapsuleService.updateTCapsuleById's Authorization error: ${error.toString()}`);
+      console.log("🚀 ~ updateTCapsuleById ~ req.user.id:", params.userId)
+      console.log("🚀 ~ updateTCapsuleById ~ req.user.role:", params.userRole)
+      if((oneCapsule.userId !== params.userId) && (oneCapsule.otherId !== params.userId) && params.userRole !== 'admin') {
         throw error;
       }
       const updateTCapsuleById = await timeCapsuleDao.updateTCapsuleById(params);
@@ -131,10 +129,9 @@ const TCapsuleService = {
     try {
       const oneCapsule = await timeCapsuleDao.findByIdTCapsule(params);
       console.log("🚀 ~ deleteTCapsuleById ~ deleteTCapsuleById:", oneCapsule.userId)
-      console.log("🚀 ~ deleteTCapsuleById ~ req.user.id:", req.user.id)
-      console.log("🚀 ~ deleteTCapsuleById ~ req.user.role:", req.user.role)
-      if((oneCapsule.userId !== req.user.id) && req.user.role !== 'admin') {
-        logger.error(`!!updateTCapsuleService.deleteTCapsuleById's Authorization error: ${error.toString()}`);
+      console.log("🚀 ~ deleteTCapsuleById ~ req.user.id:", params.userId)
+      console.log("🚀 ~ deleteTCapsuleById ~ req.user.role:", params.userRole)
+      if((oneCapsule.userId !== params.userId) && (oneCapsule.otherId !== params.userId) && params.userRole !== 'admin') {
         throw error;
       }
       const deleteTCapsuleById = await timeCapsuleDao.deleteTCapsuleById(params);

@@ -47,7 +47,7 @@ class TCapsule extends Sequelize.Model {
     });
   }
   static associate(models) {
-    TCapsule.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+    TCapsule.belongsTo(models.User, { foreignKey: 'userId', as: 'user', onDelete: "cascade" });
   }
 
   static getIncludeAttributes() {

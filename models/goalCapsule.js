@@ -64,7 +64,7 @@ class GCapsule extends Sequelize.Model {
     });
   }
   static associate(models) {
-    GCapsule.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+    GCapsule.belongsTo(models.User, { foreignKey: 'userId', as: 'user', onDelete: "cascade" });
   }
 
   static getIncludeAttributes() {

@@ -81,7 +81,7 @@ router.put('/', async (req, res) => {
   }
 });
 
-router.delete('/', async (req, res) => {
+router.delete('/', isAuthenticated , async (req, res) => {
   logger.info("[DELETE] /user/ ");
 
   try {
@@ -90,9 +90,18 @@ router.delete('/', async (req, res) => {
     }
 
     const result = await userService.deleteUser(params);
-    
-    res.status(200).json(result);
-    
+    req.logout(err => {
+      if (err) {
+        return next(err);
+      }
+      req.session.destroy(err => {
+        if (err) {
+          return res.status(500).json({ message: 'Failed to destroy session' });
+        }
+        res.clearCookie('mySessionName');
+        return res.status(200).json({ message: 'delete Account successful' });
+      });
+    });    
   } catch (error) {
     logger.error('[DELETE] /user/ res error', error);
     res.status(400).json({message: error.message});

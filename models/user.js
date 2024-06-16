@@ -48,8 +48,8 @@ class User extends Sequelize.Model {
   }
 
   static associate(models) {
-    User.hasMany(models.TCapsule, { foreignKey: 'userId', as: 'tCapsules' });
-    User.hasMany(models.GCapsule, { foreignKey: 'userId', as: 'gCapsules' });
+    User.hasMany(models.TCapsule, { foreignKey: 'userId', as: 'tCapsules', onDelete: "cascade" }, );
+    User.hasMany(models.GCapsule, { foreignKey: 'userId', as: 'gCapsules', onDelete: "cascade" });
   }
 
   static getIncludeAttributes() {

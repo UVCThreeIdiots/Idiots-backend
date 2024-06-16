@@ -2,6 +2,7 @@ import express from 'express';
 import { isAuthenticated, isAuthorization } from '../lib/middleware.js'
 import userService from '../services/userService.js';
 import capsuleService from '../services/capsuleService.js';
+import logger from '../lib/logger.js';
 
 const router = express.Router();
 

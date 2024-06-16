@@ -1,3 +1,4 @@
+import { sendEmail } from '../config/email.js';
 import GoalCapsuleDao from '../dao/goalCapsuleDao.js';
 import logger from '../lib/logger.js';
 import time from '../lib/timeUtil.js';
@@ -29,6 +30,13 @@ const goalCapsuleService = {
         imagePath: imageFiles,
       }
       const newCapsule = await GoalCapsuleDao.insert(newParams);
+      if (newCapsule.otherEmail) {
+        const to = newCapsule.otherEmail;
+        const subject = `${newParams.userId} sent you goalCapsule ${newParams.title}`;
+        const text = `${newParams.userId} sent you goalCapsule ${newParams.title}`;
+        sendEmail(to, subject, text);
+      }
+
       return newCapsule;
     } catch (error) {
       logger.error('goalCapsuleService createCapsule error', error);

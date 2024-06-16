@@ -99,25 +99,7 @@ router.delete('/', async (req, res) => {
     
   }
 });
-router.delete('/:id', async (req, res) => {
-  logger.info("[DELETE] /user/ ");
 
-  try {
-    const params = {
-      id: req.user.id,
-      targetId: req.params.id,
-    }
-
-    const result = await userService.deleteUser(params);
-    
-    res.status(200).json(result);
-    
-  } catch (error) {
-    logger.error('[DELETE] /user/ res error', error);
-    res.status(400).json({message: error.message});
-    
-  }
-});
 
 
 export default router;

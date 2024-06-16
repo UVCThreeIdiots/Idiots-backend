@@ -84,6 +84,54 @@ router.post('/email', async (req, res) => {
   }
 });
 
+router.post('/find/id', async (req, res) => {
+  try {
+    const params = {
+      email: req.body.email,
+    }
+    
+    const result = await userService.findUserId(params);
+    console.log("🚀 ~ router.post ~ result:", result)
+    
+    res.status(200).json(result);
+  } catch (error) {
+    console.log("🚀 ~ router.post ~ error:", error)
+    res.status(400).json({ message: error.message });
+  }
+});
+
+router.post('/forgot-password', async (req, res) => {
+  try {
+    const params = {
+      email: req.body.email,
+    }
+    
+    const result = await userService.findUserPw(params);
+
+    res.status(200).json(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
+router.post('/reset-password/:token', async (req, res) => {
+  try {
+    const params = {
+      token: req.params.token,
+      password:  req.body.password,
+    }
+    
+    const result = await userService.checkTokenFindPw(params);
+
+    if (result) return res.status(200).json(result);
+    else return res.status(404).json(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+
 router.post('/code', async (req, res) => {
   try {
     const params = {

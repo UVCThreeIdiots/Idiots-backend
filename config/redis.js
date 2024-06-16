@@ -26,9 +26,26 @@ async function checkVerifyToken(userEmail, inputToken) {
   }
 }
 
+async function checkVerifyTokenFindPw(inputToken) {
+  try {
+    console.log("🚀 ~ checkVerifyTokenFindPw ~ checkVerifyTokenFindPw:");
+    const userEmail = await redisClient.get(inputToken);
+    console.log("🚀 ~ checkVerifyTokenFindPw ~ userEmail:", userEmail)
+    if (userEmail) {
+      console.log('Verification successful');
+      return userEmail;
+    } else {
+      console.log('Verification failed');
+      return false;
+    }
+  } catch (err) {
+    console.error('Error checking verification token:', err);
+  }
+}
+
 // Redis 클라이언트 종료
 process.on('exit', () => {
   client.quit();
 });
 
-export { setVerifyToken, checkVerifyToken };
+export { setVerifyToken, checkVerifyToken, checkVerifyTokenFindPw };

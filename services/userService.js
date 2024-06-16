@@ -5,8 +5,8 @@ import capsuleDao from '../dao/capsuleDao.js';
 import GoalCapsuleDao from '../dao/goalCapsuleDao.js';
 import timeCapsuleDao from '../dao/timeCapsuleDao.js';
 import crypto from 'crypto';
-import { sendVerificationEmail } from '../config/email.js';
-import { setVerifyToken, checkVerifyToken} from '../config/redis.js';
+import { sendVerificationEmail , sendEmail} from '../config/email.js';
+import { setVerifyToken, checkVerifyToken, checkVerifyTokenFindPw } from '../config/redis.js';
 
 
 const userService = {
@@ -263,7 +263,99 @@ const userService = {
       });
     }
   },
+
+  async findUserId(params) {
+    logger.info('userService findUserId', params);
+    let isExist = null;
+    try {
+      isExist = await userDao.selectUserByEmail(params);
+      if (!isExist) {
+        return('false');
+      }
+    } catch (error) {
+      logger.error('userService findUserId error', error);
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+    const to = params.email;
+    const subject = 'idiots 아이디 찾기';
+    const html = `
+      <h1>당신의 아이디 입니다.</h1>
+      <p>${isExist.userId}</p>
+    `;
+    try {
+
+      await sendVerificationEmail(to, subject, html);
+      return new Promise((resolve, reject) => {
+        resolve('true');
+      });
+    } catch (error) {
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  },
   
+  async findUserPw(params) {
+    logger.info('userService findUserPw', params);
+    try {
+      const isExist = await userDao.selectUserByEmail(params);
+      if (!isExist) {
+        return('false');
+      }
+    } catch (error) {
+      logger.error('userService findUserPw error', error);
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+
+    const token = crypto.randomBytes(3).toString('hex').toUpperCase(); // 랜덤값 생성
+    console.log("🚀 ~ verificationEmail ~ token:", token);
+    
+    const to = params.email;
+    const subject = 'idiots 비밀전호 재설정';
+    const html =`<h1>해당 링크로 들어가서 비밀번호를 재설정 해주세요</h1>
+      <a href="http://localhost:5173/reset-password/${token}">비밀번호 재설정</a> `;
+    try {
+
+      await sendVerificationEmail(to, subject, html);
+      setVerifyToken(token, 600, to) // 10분 동안 유효
+      return new Promise((resolve, reject) => {
+        resolve('true');
+      });
+    } catch (error) {
+      return new Promise((resolve, reject) => {
+        reject(error);
+      });
+    }
+  },
+
+  async checkTokenFindPw(params) {
+    console.log("🚀 ~ verificationCode ~ params.token:", params.token)
+    console.log("🚀 ~ verificationCode ~ params.password:", params.password)
+    const isValid = await checkVerifyTokenFindPw(params.token)
+    
+    if (!isValid) {
+      return new Promise((resolve, reject) => {
+        reject('false');
+      });
+    }
+    
+    const user = await userDao.selectUserByEmail({email: isValid});
+
+    const newParams = {
+      ...params,
+      password:  await hashUtil.makeHashPassword(params.password),
+      id : user.id,
+    }
+
+    const updatedUser = await userDao.update(newParams);
+    return updatedUser;
+  },
+
+
   async verificationCode(params) {
     console.log("🚀 ~ verificationCode ~ params.email:", params.email)
     console.log("🚀 ~ verificationCode ~ params.code:", params.code)

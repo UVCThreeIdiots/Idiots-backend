@@ -12,9 +12,9 @@ const TCapsuleService = {
 
     
     try {
-      const audioFiles = '';
-      const imageFiles = [];
-      const videoFiles = '';
+      let audioFiles = '';
+      let imageFiles = [];
+      let videoFiles = '';
       
     // 파일을 분류하여 각 배열에 저장
     if(params.files) {

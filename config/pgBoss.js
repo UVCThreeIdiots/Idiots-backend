@@ -6,9 +6,12 @@ import userDao from '../dao/userDao.js';
 dotenv.config();
 
 const boss = new PgBoss({
-    connectionString: `postgres://${process.env.DB_ID}:${process.env.DB_PASS}@localhost:5432/${process.env.DB_DATABASE}`,
+    connectionString: `postgres://${process.env.DB_ID}:${process.env.DB_PASS}@${process.env.DB_HOST}:5432/${process.env.DB_DATABASE}`,
     schema: 'pgboss',  // 사용할 스키마 이름, 기본값은 'public'
     migrate: true,      // pgBoss가 필요한 테이블을 자동으로 생성하도록 설정
+    ssl: {
+      rejectUnauthorized: false
+    },
 });
 
 boss.on('error', error => console.error('pgBoss error:', error));

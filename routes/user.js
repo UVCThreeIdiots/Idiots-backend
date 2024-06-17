@@ -38,7 +38,7 @@ router.get('/all', isAuthenticated, isAuthorization, async (req, res) => {
     res.status(400).json({message: error.message})
   }
 });
-router.get('/', async (req, res) => {
+router.get('/', isAuthenticated, async (req, res) => {
   logger.info("[GET] /user/ ", req.url);
 
   try {
@@ -55,7 +55,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.put('/', async (req, res) => {
+router.put('/', isAuthenticated, async (req, res) => {
   logger.info("[PUT] /user/ ");
 
   try {

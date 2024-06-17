@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
 // 이메일 전송 함수
 async function sendEmail(to, subject, text) {
   const mailOptions = {
-    from: `"ssb" <${process.env.NAVER_ID}>`, // 발신자 주소
+    from: `"three_idiots" <${process.env.NAVER_ID}>`, // 발신자 주소
     to, // 수신자 주소
     subject, // 이메일 제목
     text, // 이메일 본문 (텍스트)
@@ -38,7 +38,7 @@ async function sendEmail(to, subject, text) {
 // 이메인 인증 메일전송
 async function sendVerificationEmail(to, subject, html) {
   const mailOptions = {
-    from: `"ssb" <${process.env.NAVER_ID}>`, // 발신자 주소
+    from: `"three_idiots" <${process.env.NAVER_ID}>`, // 발신자 주소
     to, // 수신자 주소
     subject, // 이메일 제목
     html, // 이메일 본문 (html)

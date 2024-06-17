@@ -29,7 +29,7 @@ router.get('/capsule/', isAuthenticated, isAuthorization , async (req, res) => {
 });
 
 
-router.put('/user/:id', async (req, res) => {
+router.put('/user/:id', isAuthenticated, isAuthorization , async (req, res) => {
   logger.info("[PUT] admin/user/:id ");
 
   try {
@@ -56,7 +56,7 @@ router.put('/user/:id', async (req, res) => {
   }
 });
 
-router.delete('/user/:id', async (req, res) => {
+router.delete('/user/:id', isAuthenticated, isAuthorization , async (req, res) => {
   logger.info("[DELETE] admin/user/:id ");
 
   try {

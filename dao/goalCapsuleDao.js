@@ -99,6 +99,10 @@ const GoalCapsuleDao = {
                 otherEmail: '', // otherEmail이 빈 값인 경우
               },
               {
+                [Op.and]: [
+                  { isSuccess: false },
+                  { isFailed: false },
+                ],
                 otherId: params.userId  // otherID ==> otherId
               }
             ]

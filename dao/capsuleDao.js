@@ -40,9 +40,17 @@ const capsuleDao = {
           attributes: User.getIncludeAttributes(),
         }],
         where: {
-          userId: params.userId,
-          status: true,
-          otherEmail: '',
+          [Op.or]: [
+            {
+              userId: params.userId,
+              status: true,
+              otherEmail: '',
+            },
+            {
+              status: true,
+              otherId: params.userId
+            }
+          ]
         },
       });
   

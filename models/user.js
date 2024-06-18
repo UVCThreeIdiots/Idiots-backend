@@ -53,7 +53,7 @@ class User extends Sequelize.Model {
   }
 
   static getIncludeAttributes() {
-    return ['id', 'userId', 'password', 'name', 'age', 'email','role','mode' ,'updatedAt', 'createdAt', 'deletedAt'];
+    return ['id', 'userId', 'name', 'age', 'email','role','mode' ,'updatedAt', 'createdAt', 'deletedAt'];
   }
 }
 

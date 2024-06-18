@@ -23,7 +23,7 @@ const userDao = {
     logger.info('userDao selectUser', params);
     return new Promise((resolve, reject) => {
       User.findOne({
-        attributes: ['id', 'userId', 'password', 'name', 'age', 'email','role', 'mode','updatedAt', 'createdAt', 'deletedAt'],
+        attributes: ['id', 'userId', 'name', 'age', 'email','role', 'mode','updatedAt', 'createdAt', 'deletedAt'],
         include: [
           {
             model: GCapsule,
@@ -66,7 +66,7 @@ const userDao = {
     logger.info('userDao loginUser', params);
     return new Promise((resolve, reject) => {
       User.findOne({
-        attributes: ['id', 'userId', 'password', 'name', 'age', 'email','role', 'mode','updatedAt', 'createdAt', 'deletedAt'],
+        attributes: ['id', 'userId', 'name', 'age', 'email','role', 'mode','updatedAt', 'createdAt', 'deletedAt'],
         where: { userId: params.userId },
       }).then((selectedOne) => {
         logger.info('userDao loginUser result');
@@ -83,7 +83,7 @@ const userDao = {
     logger.info('userDao selectAll');
     return new Promise((resolve, reject) => {
       User.findAll({
-        attributes: ['id', 'userId', 'password', 'name', 'age', 'email','role', 'mode', 'updatedAt', 'createdAt', 'deletedAt'],
+        attributes: ['id', 'userId', 'name', 'age', 'email','role', 'mode', 'updatedAt', 'createdAt', 'deletedAt'],
         include: [
           {
             model: GCapsule,

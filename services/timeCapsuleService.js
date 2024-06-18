@@ -124,6 +124,18 @@ const TCapsuleService = {
       throw error;
     }
   },
+	  // 작업큐에 의한 타임캡슐수정
+  async updateTCapsuleByIdFromPgBoss(params) {
+    try {
+      const oneCapsule = await timeCapsuleDao.findByIdTCapsule(params);
+      const updateTCapsuleById = await timeCapsuleDao.updateTCapsuleById(params);
+      logger.info('timeCapsuleService.updateTCapsuleById run successfully');
+      return updateTCapsuleById;
+    } catch (error) {
+      logger.error(`!!updateTCapsuleService.updateTCapsuleById's error: ${error.toString()}`);
+      throw error;
+    }
+  },
   // 타임캡슐삭제
   async deleteTCapsuleById(params) {
     try {

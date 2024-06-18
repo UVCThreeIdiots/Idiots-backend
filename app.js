@@ -16,7 +16,7 @@ import indexRouter from './routes/index.js';
 
 
 const corsOptions = {
-  origin: 'http://localhost:5173', // Vue 앱의 도메인
+  origin: 'http://13.125.169.9:5173', // Vue 앱의 도메인
   credentials: true // 자격 증명 허용
 };
 
@@ -92,8 +92,8 @@ app.use('/', indexRouter);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
-app.listen(app.get('port'), () => {
-  console.log(`Server on port http://localhost:${app.get('port')}`);
+app.listen(app.get('port'),'0.0.0.0', () => {
+  console.log(`Server on port http://13.125.169.9:${app.get('port')}`);
 });
 
 export { redisClient }; // 다른 모듈에서 재사용할 수 있도록 내보내기

@@ -80,7 +80,7 @@ boss.work('time-capsule', async (job) => {
       console.log("🚀 ~ boss.work ~ if (subTo !== null) {:")
       await sendEmail(subTo, subject, text);
     }
-    await TCapsuleService.updateTCapsuleById({id: capsuleId, status: true})
+    await TCapsuleService.updateTCapsuleByIdFromPgBoss({id: capsuleId, status: true})
     console.log('Email sent successfully - 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀');
   } catch (error) {
     console.log('Error sending email: ', error);

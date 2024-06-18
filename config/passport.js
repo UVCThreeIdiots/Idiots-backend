@@ -10,6 +10,7 @@ passport.use(new LocalStrategy(  { usernameField: 'userId' },async(userId, passw
     console.log("🚀 ~ passport.use ~ user:", user)
     return done({ message: 'Incorrect username.' }, false);
   }
+	console.log(" user : ", user);
   const passwordCheck = await hashUtil.checkPasswordHash(password, user.password)
   if (!passwordCheck) {
     console.log("🚀 ~ passport.use ~ hashUtil:")

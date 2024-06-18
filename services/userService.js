@@ -151,6 +151,7 @@ const userService = {
 
     // 2. 비밀번호 비교
     try {
+	    console.log(user);
       const checkPassword = await hashUtil.checkPasswordHash(params.password, user.password);
 
       // 비밀번호 틀린 경우 튕겨냄
@@ -317,7 +318,7 @@ const userService = {
     const to = params.email;
     const subject = 'idiots 비밀전호 재설정';
     const html =`<h1>해당 링크로 들어가서 비밀번호를 재설정 해주세요</h1>
-      <a href="http://localhost:5173/reset-password/${token}">비밀번호 재설정</a> `;
+    <a href="http://13.125.169.9:5173/reset-password/${token}">비밀번호 재설정</a> `;
     try {
 
       await sendVerificationEmail(to, subject, html);

@@ -66,7 +66,7 @@ const userDao = {
     logger.info('userDao loginUser', params);
     return new Promise((resolve, reject) => {
       User.findOne({
-        attributes: ['id', 'userId', 'name', 'age', 'email','role', 'mode','updatedAt', 'createdAt', 'deletedAt'],
+        attributes: ['id', 'userId', 'password','name', 'age', 'email','role', 'mode','updatedAt', 'createdAt', 'deletedAt'],
         where: { userId: params.userId },
       }).then((selectedOne) => {
         logger.info('userDao loginUser result');

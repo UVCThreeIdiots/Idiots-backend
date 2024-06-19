@@ -111,7 +111,8 @@ const goalCapsuleService = {
       if((oneCapsule.userId !== params.userId) && (oneCapsule.otherId !== params.userId) && params.userRole !== 'admin') {
         throw new Error({message: 'Authorization'});
       }
-      const updatedCapsule = await GoalCapsuleDao.update(params);
+      const {userId, ...newParams } = params;
+      const updatedCapsule = await GoalCapsuleDao.update(newParams);
       if (updatedCapsule.nowCount === updatedCapsule.goalCount) {
         const newUpdatedCapsule = await GoalCapsuleDao.update({id : params.id, isSuccess: true});
         logger.info('goalCapsuleService newUpdatedCapsule');

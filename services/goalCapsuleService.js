@@ -114,7 +114,7 @@ const goalCapsuleService = {
       const updatedCapsule = await GoalCapsuleDao.update(params);
       if (updatedCapsule.nowCount === updatedCapsule.goalCount) {
         const newUpdatedCapsule = await GoalCapsuleDao.update({id : params.id, isSuccess: true});
-        logger.info('goalCapsuleService newUpdatedCapsule', newUpdatedCapsule);
+        logger.info('goalCapsuleService newUpdatedCapsule');
         return newUpdatedCapsule;
       }
       return updatedCapsule;

@@ -7,7 +7,7 @@ passport.use(new LocalStrategy(  { usernameField: 'userId' },async(userId, passw
   console.log("🚀 ~ passport.use ~ passport.use(new LocalStrategy((userId, password, done:", userId, password);
   const user = await userDao.loginUser({userId: userId});
   if (!user) {
-    console.log("🚀 ~ passport.use ~ user:", user)
+    console.log("🚀 ~ passport.use ~ user:")
     return done({ message: 'Incorrect username.' }, false);
   }
 	console.log(" user : ", user);

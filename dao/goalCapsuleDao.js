@@ -11,7 +11,7 @@ const GoalCapsuleDao = {
     return new Promise((resolve, reject) => {
       GCapsule.create(params)
       .then(result => {
-        logger.info('goalCapsuleDao insert result', result);
+        logger.info('goalCapsuleDao insert result');
         resolve(result);
       })
       .catch(err => {
@@ -51,7 +51,7 @@ const GoalCapsuleDao = {
         }],
         where: { id: params.id },
       }).then((selectedOne) => {
-        logger.info('goalCapsuleDao selectOne result', selectedOne);
+        logger.info('goalCapsuleDao selectOne result');
         resolve(selectedOne);
       }).catch((err) => {
         logger.error('goalCapsuleDao selectOne error', err);
@@ -189,7 +189,7 @@ const GoalCapsuleDao = {
           where: { id: params.id },
         },
       ).then(([ updatedCount, updatedContent ]) => {
-        logger.info('goalCapsuleDao update result', updatedCount, updatedContent);
+        logger.info('goalCapsuleDao update result');
         resolve( updatedContent[0] );
       }).catch((err) => {
         logger.error('goalCapsuleDao update error', err);
@@ -204,7 +204,7 @@ const GoalCapsuleDao = {
       GCapsule.destroy({
         where: { id: params.id },
       }).then((deleted) => {
-        logger.info('goalCapsuleDao delete result', deleted);
+        logger.info('goalCapsuleDao delete result');
         resolve({ deletedCount: deleted });
       }).catch((err) => {
         logger.error('goalCapsuleDao delete error', err);

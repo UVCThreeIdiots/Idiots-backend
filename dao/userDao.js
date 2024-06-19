@@ -10,7 +10,7 @@ const userDao = {
     logger.info('userDao insert', params);
     return new Promise((resolve, reject) => {
       User.create(params).then((inserted) => {
-        logger.info('userDao insert result', inserted);
+        logger.info('userDao insert result');
         resolve(inserted);
       }).catch((err) => {
         logger.error('goalCapsuleDao insert error', err);
@@ -134,7 +134,7 @@ const userDao = {
           where: { id: params.id },
         },
       ).then(([updatedCount, updatedContent]) => {
-        logger.info('userDao update result', updatedContent, updatedCount);
+        logger.info('userDao update result');
         resolve( updatedContent[0]);
       }).catch((err) => {
         logger.error('userDao update error', err);
@@ -149,7 +149,7 @@ const userDao = {
       User.destroy({
         where: { id: params.id },
       }).then((deleted) => {
-        logger.info('userDao delete result', deleted);
+        logger.info('userDao delete result');
         resolve({ deletedCount: deleted });
       }).catch((err) => {
         logger.error('userDao delete error', err);

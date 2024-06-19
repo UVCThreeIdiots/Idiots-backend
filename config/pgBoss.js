@@ -71,7 +71,7 @@ boss.work('time-capsule', async (job) => {
             <div style="text-align: center; padding: 20px;">
                 <h2>타임캡슐이 열릴 준비가 되었습니다!</h2>
                 <p>과거의 내가 지금의 나에게 보낸 특별한 메시지를 열어볼 시간입니다. 지금 바로 홈페이지에 접속하여 과거의 나와 소중한 대화를 나눠보세요.</p>
-                <a href="http://13.125.169.9:5173/" style="display: inline-block; padding: 10px 20px; color: white; background-color: blue; text-decoration: none; border-radius: 5px;">타임캡슐 열기</a>
+                <a href="https:www.3idiots.xyz/" style="display: inline-block; padding: 10px 20px; color: white; background-color: blue; text-decoration: none; border-radius: 5px;">타임캡슐 열기</a>
             </div>
           `;
   } else {
@@ -81,7 +81,7 @@ boss.work('time-capsule', async (job) => {
             <div style="text-align: center; padding: 20px;">
               <h2>타임캡슐이 열릴 준비가 되었습니다!</h2>
               <p>${user.name}가 지금의 ${subUser.name}에게 보낸 특별한 메시지를 열어볼 시간입니다. 지금 바로 홈페이지에 접속하여 그들의 진심을 확인해보세요.</p>
-              <a href="http://13.125.169.9:5173/" style="display: inline-block; padding: 10px 20px; color: white; background-color: blue; text-decoration: none; border-radius: 5px;">타임캡슐 열기</a>
+              <a href="https:www.3idiots.xyz/" style="display: inline-block; padding: 10px 20px; color: white; background-color: blue; text-decoration: none; border-radius: 5px;">타임캡슐 열기</a>
             </div>
           `;
   }

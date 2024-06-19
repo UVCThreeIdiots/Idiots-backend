@@ -67,7 +67,7 @@ async function checkGoalAndUpdateDB() {
     }
     try {
       const updated =await GoalCapsuleDao.update(params);
-      logger.info("Updated schedule: ", updated);
+      logger.info("Updated schedule: ");
     } catch (error) {
       logger.error("schedule update error : ",error.message);
     }

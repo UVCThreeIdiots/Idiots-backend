@@ -29,8 +29,14 @@ passport.serializeUser((user, done) => {
 // 세션에서 사용자 정보를 복원
 passport.deserializeUser(async (id, done) => {
   console.log("🚀 ~ passport.deserializeUser ~ id:", id)
-  const user = await userDao.selectUser({id: id});
-  done(null, user);
+    try {
+    
+    const user = await userDao.selectUser({id: id});
+	done(null, user);
+  } catch (error) {
+    console.log("🚀 ~ passport.deserializeUser ~ error:", error)
+  }
+  
 });
 
 export default passport;

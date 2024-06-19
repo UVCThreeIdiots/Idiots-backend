@@ -9,7 +9,7 @@ const timeCapsuleDao = {
     return new Promise((resolve, reject) => {
       TCapsule.create(params)
       .then(result => {
-        logger.info('timeCapsule insert result', result);
+        logger.info('timeCapsule insert result');
         resolve(result)
       })
       .catch(err => {

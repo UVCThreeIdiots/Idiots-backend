@@ -245,11 +245,16 @@ const userService = {
     const token = crypto.randomBytes(3).toString('hex').toUpperCase(); // 랜덤값 생성
     console.log("🚀 ~ verificationEmail ~ token:", token)
     const to = params.email;
-    const subject = 'Idiots Verification Email';
+    const subject = '이메일 인증 코드';
     const html = `
-      <h1>Verification Email</h1>
-      <p>Please enter the verify number : ${token}</p>
-      
+                <div style="text-align: center; padding: 20px;">
+                    <h2>이메일 인증 코드</h2>
+                    <p>안녕하세요,</p>
+                    <p>ThreeIdiots 서비스를 이용해주셔서 감사합니다. 다음 코드를 사용하여 이메일 인증을 완료해주세요:</p>
+                    <h3 style="color: blue;">${token}</h3>
+                    <p>코드의 유효 기간은 1분입니다. 이 기간이 지나면 새로운 인증 코드를 요청해주세요.</p>
+                    <p>감사합니다,<br/>ThreeIdiots 팀</p>
+                </div>
     `;
     try {
 
@@ -280,11 +285,17 @@ const userService = {
       });
     }
     const to = params.email;
-    const subject = 'idiots 아이디 찾기';
+    const subject = '아이디 안내';
     const html = `
-      <h1>당신의 아이디 입니다.</h1>
-      <p>${isExist.userId}</p>
-    `;
+                  <div style="text-align: center; padding: 20px;">
+                    <h2>아이디 안내</h2>
+                    <p>안녕하세요,</p>
+                    <p>ThreeIdiots 계정의 아이디는 다음과 같습니다:</p>
+                    <h3 style="color: blue;">${isExist.userId}</h3>
+                    <p>아이디를 잊으셨을 때는 이 메일을 참고해주세요.</p>
+                    <p>감사합니다,<br/>ThreeIdiots 팀</p>
+                  </div>
+                `;
     try {
 
       await sendVerificationEmail(to, subject, html);
@@ -316,9 +327,17 @@ const userService = {
     console.log("🚀 ~ verificationEmail ~ token:", token);
     
     const to = params.email;
-    const subject = 'idiots 비밀전호 재설정';
-    const html =`<h1>해당 링크로 들어가서 비밀번호를 재설정 해주세요</h1>
-    <a href="http://13.125.169.9:5173/reset-password/${token}">비밀번호 재설정</a> `;
+    const subject = '비밀번호 재설정 안내';
+    const html =`
+    <div style="text-align: center; padding: 20px;">
+        <h2>비밀번호 재설정 안내</h2>
+        <p>안녕하세요,</p>
+        <p>비밀번호 재설정을 요청하셨습니다. 아래 링크를 클릭하여 ThreeIdiots 계정의 비밀번호를 재설정하세요:</p>
+        <a href="http://13.125.169.9:5173/reset-password/${token}" style="display: inline-block; padding: 10px 20px; color: white; background-color: blue; text-decoration: none; border-radius: 5px;">비밀번호 재설정</a>
+        <p>이 링크는 30분 동안 유효합니다. 이 시간이 지나면 새로운 비밀번호 재설정을 요청해주세요.</p>
+        <p>감사합니다,<br/>ThreeIdiots 팀</p>
+    </div>
+    `;
     try {
 
       await sendVerificationEmail(to, subject, html);

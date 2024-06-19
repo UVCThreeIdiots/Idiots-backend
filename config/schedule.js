@@ -45,16 +45,21 @@ async function checkGoalAndUpdateDB() {
 
         }
         const to = userEmail;
-        const subject = "this is failed mail";
-        const text = `
-          User ID: ${userEmail}
-          capsule Info: ${capsule}
+        const subject = "골캡슐 목표 달성 실패";
+        const html = `
+        <div style="text-align: center; padding: 20px;">
+          <h2>골캡슐 목표 달성 실패</h2>
+          <p>안녕하세요,</p>
+          <p>아쉽게도 ${user.name}님께서 설정한 '${capsule.title}' 목표를 달성하지 못했습니다.</p>
+          <p>다음번에는 꼭 목표를 달성하시길 응원합니다!</p>
+          <p>감사합니다,<br/>BullBull 팀</p>
+        </div>
         `;
         if (subTo){
-          await sendEmail(subTo, subject, text);
+          await sendEmail(subTo, subject, html);
           console.log("Email sent successfully - 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀");
         }
-        await sendEmail(to, subject, text);
+        await sendEmail(to, subject, html);
         console.log('Email sent successfully - 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀');
       } catch (error) {
         console.log('Error sending email: ', error);

@@ -1,5 +1,6 @@
 import { sendEmail } from '../config/email.js';
 import GoalCapsuleDao from '../dao/goalCapsuleDao.js';
+import userDao from '../dao/userDao.js';
 import logger from '../lib/logger.js';
 import time from '../lib/timeUtil.js';
 
@@ -30,11 +31,20 @@ const goalCapsuleService = {
         imagePath: imageFiles,
       }
       const newCapsule = await GoalCapsuleDao.insert(newParams);
+      const user = await userDao.selectUser({id: newParams.userId});
       if (newCapsule.otherEmail) {
         const to = newCapsule.otherEmail;
-        const subject = `${newParams.userId} sent you goalCapsule ${newParams.title}`;
-        const text = `${newParams.userId} sent you goalCapsule ${newParams.title}`;
-        sendEmail(to, subject, text);
+        const subject = `새로운 골캡슐이 도착했습니다!`;
+        const html = `
+        <div style="text-align: center; padding: 20px;">
+          <h2>새로운 골캡슐이 도착했습니다!</h2>
+          <p>안녕하세요,</p>
+          <p>${user.name}님께서 당신에게 새로운 골캡슐을 보냈습니다. '${newParams.title}' 목표를 달성하여 캡슐을 열어보세요!</p>
+          <p>지금부터 목표기간 동안 달성여부를 기록하면 최종 목표 달성 후 캡슐을 열 수 있습니다. 화이팅!</p>
+          <p>감사합니다,<br/>ThreeIdiots 팀</p>
+        </div>
+        `;
+        sendEmail(to, subject, html);
       }
 
       return newCapsule;

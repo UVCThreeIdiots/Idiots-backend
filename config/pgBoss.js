@@ -37,7 +37,7 @@ boss.work('time-capsule', async (job) => {
   let to = null;
   let subTo = null;
   let subject = null;
-  let text = null;
+  let html = null;
 
   if (!otherId && !otherEmail.length) {
     console.log("🚀 ~ boss.work ~ !otherId && !otherEmail.length:")
@@ -66,19 +66,31 @@ boss.work('time-capsule', async (job) => {
   
   if (subTo === null) {
     console.log("🚀 ~ boss.work ~ subTo === null:")
-    subject = 'mail';
-    text = `이것은 나에게 보낸 메일입니다.`;
+    subject = `📅 타임캡슐이 열렸습니다: 과거의 내가 보낸 메시지를 확인하세요!`;
+    html = `
+            <div style="text-align: center; padding: 20px;">
+                <h2>타임캡슐이 열릴 준비가 되었습니다!</h2>
+                <p>과거의 내가 지금의 나에게 보낸 특별한 메시지를 열어볼 시간입니다. 지금 바로 홈페이지에 접속하여 과거의 나와 소중한 대화를 나눠보세요.</p>
+                <a href="http://13.125.169.9:5173/" style="display: inline-block; padding: 10px 20px; color: white; background-color: blue; text-decoration: none; border-radius: 5px;">타임캡슐 열기</a>
+            </div>
+          `;
   } else {
     console.log("🚀 ~ boss.work ~ 2 else:")
-    subject = 'mail';
-    text = `이것은 ${userId}님이 ${otherEmail}님에게 보낸 메일입니다.`;
+    subject = `⏳ 과거의 ${user.name}가 보낸 타임캡슐 메시지가 도착했습니다!`;
+    html = `
+            <div style="text-align: center; padding: 20px;">
+              <h2>타임캡슐이 열릴 준비가 되었습니다!</h2>
+              <p>${user.name}가 지금의 ${subUser.name}에게 보낸 특별한 메시지를 열어볼 시간입니다. 지금 바로 홈페이지에 접속하여 그들의 진심을 확인해보세요.</p>
+              <a href="http://13.125.169.9:5173/" style="display: inline-block; padding: 10px 20px; color: white; background-color: blue; text-decoration: none; border-radius: 5px;">타임캡슐 열기</a>
+            </div>
+          `;
   }
 
   try {
-    await sendEmail(to, subject, text);
+    await sendEmail(to, subject, html);
     if (subTo !== null) {
       console.log("🚀 ~ boss.work ~ if (subTo !== null) {:")
-      await sendEmail(subTo, subject, text);
+      await sendEmail(subTo, subject, html);
     }
     await TCapsuleService.updateTCapsuleByIdFromPgBoss({id: capsuleId, status: true})
     console.log('Email sent successfully - 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀');

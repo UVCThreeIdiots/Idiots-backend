@@ -10,8 +10,9 @@ const TCapsuleService = {
   async createCapsule(params) {
     logger.info('TCapsuleService createCapsule');
 
-    
+	    
     try {
+
       let audioFiles = '';
       let imageFiles = [];
       let videoFiles = '';
@@ -20,11 +21,11 @@ const TCapsuleService = {
     if(params.files) {
       params.files.forEach(file => {
         if (file.mimetype.startsWith('image/')) {
-          imageFiles.push(file.path);
+          imageFiles.push(file.s3Url);
         } else if (file.mimetype.startsWith('audio/')) {
-          audioFiles = file.path;
+          audioFiles = file.s3Url;
         } else if (file.mimetype.startsWith('video/')) {
-          videoFiles = file.path
+          videoFiles = file.s3Url;
         }
       });
     }

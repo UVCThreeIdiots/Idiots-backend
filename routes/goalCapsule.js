@@ -3,12 +3,12 @@ import goalCapsuleService from '../services/goalCapsuleService.js';
 import logger from '../lib/logger.js';
 import time from '../lib/timeUtil.js';
 import { isAuthenticated, isAuthorization } from '../lib/middleware.js';
-import upload from '../lib/multer.js';
+import uploadToS3 from '../lib/multer.js';
 
 const router = express.Router();
 
 
-router.post('/', isAuthenticated, upload.array('files', 12), async (req, res) => {
+router.post('/', isAuthenticated, uploadToS3, async (req, res) => {
   logger.info('[POST] /goal/ ', req.body);
   try {
     const params = {

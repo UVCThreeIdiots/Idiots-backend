@@ -2,11 +2,11 @@ import express from 'express';
 import { isAuthenticated, isAuthorization } from '../lib/middleware.js';
 import TCapsuleService from '../services/timeCapsuleService.js';
 import logger from '../lib/logger.js';
-import upload from '../lib/multer.js';
+import uploadToS3 from '../lib/multer.js';
 
 const router = express.Router();
 
-router.post('/', isAuthenticated, upload.array('files', 12), async(req, res) => {
+router.post('/', isAuthenticated, uploadToS3, async(req, res) => {
   console.log(req);
   try{
     const params = {

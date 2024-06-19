@@ -12,7 +12,7 @@ const goalCapsuleService = {
 
     if(params.files) {
       params.files.forEach(file => {
-          imageFiles.push(file.path);
+          imageFiles.push(file.s3Url);
       });
     }
       const newGoalTerm = params.goalTerm * 7;

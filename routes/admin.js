@@ -6,7 +6,17 @@ import logger from '../lib/logger.js';
 
 const router = express.Router();
 
-router.get('/user/', isAuthenticated, isAuthorization ,async (req, res) => {
+router.get('/user/chart', isAuthenticated, isAuthorization ,async (req, res) => {
+
+  try {
+    const result = await userService.chartList();
+    res.status(200).json(result);
+    
+  } catch (error) {
+    res.status(400).json({message: error.message})
+  }
+});
+router.get('/user/list', isAuthenticated, isAuthorization ,async (req, res) => {
 
   try {
     const result = await userService.list();

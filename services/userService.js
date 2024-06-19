@@ -73,6 +73,31 @@ const userService = {
     }
   },
 
+  async chartList() {
+    logger.info('userService chartList');
+    let allUser = null;
+    try {
+      allUser = await userDao.selectAllWithOutParanoid();
+      logger.info('userService chartList allUsers');
+      
+      if(!allUser) {
+        const err = new Error('No user');
+        return new Promise((resolve, reject) => {
+          logger.error('userService chartList allUser is null');
+          reject(err);
+        });
+      }
+      return new Promise((resolve) => {
+        resolve(allUser);
+      });
+    } catch (error) {
+      return new Promise((resolve, reject) => {
+        logger.error('userService chartList error', error);
+        reject(error);
+      });
+    }
+  },
+
   async getOneUser(params) {
     logger.info('userService getOneUser', params);
     try {

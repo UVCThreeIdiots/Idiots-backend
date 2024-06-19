@@ -79,7 +79,7 @@ const userDao = {
   },
   
 
-  selectAll() {
+  selectAllWithOutParanoid() {
     logger.info('userDao selectAll');
     return new Promise((resolve, reject) => {
       User.findAll({
@@ -92,6 +92,28 @@ const userDao = {
           }
         ],
         paranoid: false,
+      }).then((selectedAll) => {
+        logger.info('userDao selectAll result');
+        resolve(selectedAll);
+      }).catch((err) => {
+        logger.error('userDao selectAll error', err);
+        reject(err);
+      });
+    });
+  },
+
+  selectAll() {
+    logger.info('userDao selectAll');
+    return new Promise((resolve, reject) => {
+      User.findAll({
+        attributes: ['id', 'userId', 'name', 'age', 'email','role', 'mode', 'updatedAt', 'createdAt', 'deletedAt'],
+        include: [
+          {
+            model: GCapsule,
+            as: 'gCapsules',
+            attributes: GCapsule.getIncludeAttributesId()
+          }
+        ],
       }).then((selectedAll) => {
         logger.info('userDao selectAll result');
         resolve(selectedAll);

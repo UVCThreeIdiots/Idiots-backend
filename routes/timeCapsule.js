@@ -7,7 +7,6 @@ import uploadToS3 from '../lib/multer.js';
 const router = express.Router();
 
 router.post('/', isAuthenticated, uploadToS3, async(req, res) => {
-  console.log(req);
   try{
     const params = {
       userId: req.user.id,

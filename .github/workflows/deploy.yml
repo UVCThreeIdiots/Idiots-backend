@@ -24,9 +24,13 @@ jobs:
         ssh-keyscan -H ec2-13-125-169-9.ap-northeast-2.compute.amazonaws.com >> ~/.ssh/known_hosts
     
     - name: Get Public IP
-        id: ip
-        uses: haythem/public-ip@v1.3
+      id: ip
+      uses: haythem/public-ip@v1.3
 
+    - name: Print Public IP
+      run: |
+        echo ${{ steps.ip.outputs.ipv4 }}
+        
     - name: Deploy to EC2
       run: |
         ssh -i ~/.ssh/idiots-webserver-key.pem ec2-user@ec2-13-125-169-9.ap-northeast-2.compute.amazonaws.com 'cd /Idiots/Idiots-backend && ./deploy.sh'

@@ -19,6 +19,7 @@ const userDao = {
     });
   },
   
+  
   selectUser(params) {
     logger.info('userDao selectUser', params);
     return new Promise((resolve, reject) => {

@@ -11,6 +11,7 @@ const capsuleDao = {
     logger.info('capsuleDao selectAllByMyId');
     return new Promise((resolve, reject) => {
       const gCapsulePromise = GCapsule.findAll({
+        order: [['id', 'DESC']], // id 기준으로 오름차순 정렬
         include: [{
           model: User,
           as: 'user',
@@ -71,6 +72,7 @@ const capsuleDao = {
     logger.info('capsuleDao selectAllByOtherId');
     return new Promise((resolve, reject) => {
       const gCapsulePromise = GCapsule.findAll({
+        order: [['id', 'DESC']], // id 기준으로 오름차순 정렬
         include: [{
           model: User,
           as: 'user',

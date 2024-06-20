@@ -107,7 +107,7 @@ const GoalCapsuleDao = {
               }
             ]
           },
-          order: [['id', 'ASC']] // id 기준으로 오름차순 정렬
+          order: [['id', 'DESC']] // id 기준으로 오름차순 정렬
       }).then((selectedAll) => {
         logger.info('goalCapsuleDao selectAllByUserId result');
         resolve(selectedAll);

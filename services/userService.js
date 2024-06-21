@@ -358,7 +358,7 @@ const userService = {
         <h2>비밀번호 재설정 안내</h2>
         <p>안녕하세요,</p>
         <p>비밀번호 재설정을 요청하셨습니다. 아래 링크를 클릭하여 ThreeIdiots 계정의 비밀번호를 재설정하세요:</p>
-        <a href="https://https:www.3idiots.xyz/reset-password/${token}" style="display: inline-block; padding: 10px 20px; color: white; background-color: blue; text-decoration: none; border-radius: 5px;">비밀번호 재설정</a>
+        <a href="https://www.3idiots.xyz/reset-password/${token}" style="display: inline-block; padding: 10px 20px; color: white; background-color: blue; text-decoration: none; border-radius: 5px;">비밀번호 재설정</a>
         <p>이 링크는 30분 동안 유효합니다. 이 시간이 지나면 새로운 비밀번호 재설정을 요청해주세요.</p>
         <p>감사합니다,<br/>ThreeIdiots 팀</p>
     </div>

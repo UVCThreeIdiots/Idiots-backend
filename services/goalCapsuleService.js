@@ -113,7 +113,8 @@ const goalCapsuleService = {
         throw new Error({message: 'Authorization'});
       }
       const {userId, ...newParams } = params;
-      newParams.achievedDates = oneCapsule.achievedDates.push(time.getNowDate())
+      oneCapsule.achievedDates.push(time.getNowDate())
+      newParams.achievedDates = oneCapsule.achievedDates;
       const updatedCapsule = await GoalCapsuleDao.update(newParams);
       if (updatedCapsule.nowCount === updatedCapsule.goalCount) {
         const newUpdatedCapsule = await GoalCapsuleDao.update({id : params.id, isSuccess: true});

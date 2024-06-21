@@ -76,6 +76,12 @@ async function checkGoalAndUpdateDB() {
 }
 
 
+async function testTimeZone() {
+
+  logger.info("testTimeZone test ");
+
+  return ;
+}
 
 
 
@@ -84,5 +90,8 @@ const job = schedule.scheduleJob('1 0 0 * * *', () => {
   console.log("🚀 ~ job : ")
   checkGoalAndUpdateDB();
 });
+const testTime = schedule.scheduleJob('1 0 15 * * *', () => {
+  testTimeZone();
+});
 
-export { job };
+export { job, testTime };

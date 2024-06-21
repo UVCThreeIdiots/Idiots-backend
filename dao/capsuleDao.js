@@ -28,7 +28,11 @@ const capsuleDao = {
               otherEmail: '', // otherEmail이 빈 값인 경우
             },
             {
-              otherId: params.userId
+              otherId: params.userId,
+              [Op.or]: [
+                { isSuccess: true },
+                { isFailed: true },
+              ],
             }
           ]
         },

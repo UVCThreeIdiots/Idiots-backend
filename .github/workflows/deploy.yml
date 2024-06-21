@@ -34,7 +34,7 @@ jobs:
           port: ${{ secrets.AWS_SSH_PORT }}
           script_stop: true
           script: |
-            cd /Idiots/Idiots-backend
+            cd ~/Idiots/Idiots-backend
             ./deploy.sh
 
       - name: Remove Github Actions IP From Security Group

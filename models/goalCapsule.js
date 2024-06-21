@@ -54,6 +54,10 @@ class GCapsule extends Sequelize.Model {
         type: Sequelize.ARRAY(Sequelize.STRING(255)),
         allowNull: true,
       },
+      achievedDates: {
+        type: Sequelize.ARRAY(Sequelize.STRING(255)),
+        allowNull: true,
+      },
     }, {
       sequelize,
       timestamps: true,

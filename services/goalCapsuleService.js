@@ -9,7 +9,7 @@ const goalCapsuleService = {
     logger.info('goalCapsuleService createCapsule', params);
     try {
       const imageFiles = [];
-
+      const initAchievedDates = [];
     if(params.files) {
       params.files.forEach(file => {
           imageFiles.push(file.s3Url);
@@ -29,6 +29,7 @@ const goalCapsuleService = {
         expired: newExpired,
         goalTerm: newGoalTerm,
         imagePath: imageFiles,
+        achievedDates: initAchievedDates,
       }
       const newCapsule = await GoalCapsuleDao.insert(newParams);
       const user = await userDao.selectUser({id: newParams.userId});
@@ -112,6 +113,7 @@ const goalCapsuleService = {
         throw new Error({message: 'Authorization'});
       }
       const {userId, ...newParams } = params;
+      newParams.achievedDates = oneCapsule.achievedDates.push(time.getNowDate())
       const updatedCapsule = await GoalCapsuleDao.update(newParams);
       if (updatedCapsule.nowCount === updatedCapsule.goalCount) {
         const newUpdatedCapsule = await GoalCapsuleDao.update({id : params.id, isSuccess: true});

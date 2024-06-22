@@ -42,6 +42,7 @@ async function checkGoalAndUpdateDB() {
           console.log("🚀 ~ checkGoalAndUpdateDB ~ if (capsule.otherEmail) { //타인:") 
           subUser = await userDao.selectUser({id : capsule.otherId})
           subTo = subUser.email;
+          console.log("🚀 ~ subTo:", subTo)
 
         }
         const to = userEmail;
@@ -52,12 +53,21 @@ async function checkGoalAndUpdateDB() {
           <p>안녕하세요,</p>
           <p>아쉽게도 ${user.name}님께서 설정한 '${capsule.title}' 목표를 달성하지 못했습니다.</p>
           <p>다음번에는 꼭 목표를 달성하시길 응원합니다!</p>
-          <p>감사합니다,<br/>BullBull 팀</p>
+          <p>감사합니다,<br/>ThreeIdiots 팀</p>
         </div>
         `;
         if (subTo){
+          html = `
+        <div style="text-align: center; padding: 20px;">
+          <h2>골캡슐 목표 달성 실패</h2>
+          <p>안녕하세요,</p>
+          <p>아쉽게도 ${user.name}님께서 ${subUser.name}님에게 보낸 '${capsule.title}' 목표를 달성하지 못했습니다.</p>
+          <p>다음번에는 꼭 목표를 달성하시길 응원합니다!</p>
+          <p>감사합니다,<br/>ThreeIdiots 팀</p>
+        </div>
+        `;
           await sendEmail(subTo, subject, html);
-          console.log("Email sent successfully - 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀");
+          console.log("Email sent subTO successfully - 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀");
         }
         await sendEmail(to, subject, html);
         console.log('Email sent successfully - 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀');
@@ -75,23 +85,10 @@ async function checkGoalAndUpdateDB() {
   return ;
 }
 
-
-async function testTimeZone() {
-
-  logger.info("testTimeZone test ");
-
-  return ;
-}
-
-
-
 // 스케줄링 작업 설정
-const job = schedule.scheduleJob('1 0 0 * * *', () => {
+const job = schedule.scheduleJob('1 0 15 * * *', () => {
   console.log("🚀 ~ job : ")
   checkGoalAndUpdateDB();
 });
-const testTime = schedule.scheduleJob('1 0 15 * * *', () => {
-  testTimeZone();
-});
 
-export { job, testTime };
+export { job };

@@ -86,7 +86,7 @@ async function checkGoalAndUpdateDB() {
 }
 
 // 스케줄링 작업 설정
-const job = schedule.scheduleJob('1 0 15 * * *', () => {
+const job = schedule.scheduleJob('1 0 0 * * *', () => {
   console.log("🚀 ~ job : ")
   checkGoalAndUpdateDB();
 });

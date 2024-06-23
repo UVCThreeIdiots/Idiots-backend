@@ -47,7 +47,7 @@ async function checkGoalAndUpdateDB() {
         }
         const to = userEmail;
         const subject = "골캡슐 목표 달성 실패";
-        const html = `
+        let html = `
         <div style="text-align: center; padding: 20px;">
           <h2>골캡슐 목표 달성 실패</h2>
           <p>안녕하세요,</p>
@@ -86,7 +86,7 @@ async function checkGoalAndUpdateDB() {
 }
 
 // 스케줄링 작업 설정
-const job = schedule.scheduleJob('1 0 0 * * *', () => {
+const job = schedule.scheduleJob('1 20 0 * * *', () => {
   console.log("🚀 ~ job : ")
   checkGoalAndUpdateDB();
 });
